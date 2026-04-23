@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gexf xmlns="http://www.gexf.net/1.2draft" version="1.2">
+  <graph mode="static" defaultedgetype="undirected">
+    <nodes>
+      <node id="1" label="1" />
+      <node id="2" label="2" />
+      <node id="3" label="3" />
+      <node id="4" label="4" />
+      <node id="5" label="5" />
+    </nodes>
+    <edges>
+      <edge id="e1" source="1" target="2" weight="3.5" label="3.5" />
+      <edge id="e2" source="1" target="3" weight="2.0" label="2.0" />
+      <edge id="e3" source="2" target="4" weight="1.5" label="1.5" />
+      <edge id="e4" source="3" target="5" weight="4.2" label="4.2" />
+    </edges>
+  </graph>
+</gexf>

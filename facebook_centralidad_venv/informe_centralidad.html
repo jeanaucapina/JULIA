@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<title>Informe de centralidad en la red de Facebook</title>
+<style>
+body { font-family: Segoe UI, Arial, sans-serif; margin: 32px; color: #1f2937; }
+h1, h2, h3 { color: #0f172a; }
+table { border-collapse: collapse; width: 100%; margin: 12px 0 24px; }
+th, td { border: 1px solid #cbd5e1; padding: 8px 10px; text-align: left; }
+th { background: #e2e8f0; }
+img { max-width: 100%; display: block; margin: 12px 0; border: 1px solid #dbe4ee; }
+.caption { color: #475569; margin-top: 0; }
+.metric-grid { display: block; }
+@media print { body { margin: 18px; } h2, h3 { break-after: avoid; } img, table { break-inside: avoid; } }
+</style>
+</head>
+<body>
+<h1>Informe de centralidad en la red de Facebook</h1>
+<h2>Resumen de la red</h2>
+<ul>
+<li>Nodos: 4039</li>
+<li>Aristas: 88234</li>
+<li>Componentes conectados: 1</li>
+<li>Grado promedio: 43.691</li>
+<li>Densidad: 0.01081996</li>
+</ul>
+<h2>Interpretacion</h2>
+<ul>
+<li>Degree centrality destaca usuarios con muchas conexiones directas.</li>
+<li>Betweenness centrality resalta usuarios puente entre comunidades.</li>
+<li>Closeness centrality favorece usuarios con acceso rapido al resto de la red.</li>
+</ul>
+<h2>Comunidades detectadas con Louvain</h2>
+<ul>
+<li>Comunidades detectadas: 112</li>
+<li>Modularidad (Louvain): 0.673421</li>
+<li>Tamano de la comunidad mas grande: 654</li>
+</ul>
+<section class="figure-block">
+<h3>Top comunidades por tamano</h3>
+<img src="plots/community_sizes_top.png" alt="Top comunidades por tamano" />
+<p class="caption">Las 15 comunidades mas grandes detectadas por el algoritmo Louvain, ordenadas por numero de nodos.</p>
+</section>
+<section class="figure-block">
+<h3>Distribucion del tamano de comunidades</h3>
+<img src="plots/community_size_distribution.png" alt="Distribucion del tamano de comunidades" />
+<p class="caption">Histograma que muestra cuantas comunidades tienen cada rango de tamano. Una distribucion sesgada indica la presencia de unas pocas comunidades grandes y muchas pequeñas.</p>
+</section>
+<h3>Asignacion de comunidad por nodo (primeros 10 nodos)</h3>
+<table>
+<thead><tr><th>Vertice interno</th><th>Nodo original</th><th>Comunidad</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>0</td><td>3</td></tr>
+<tr><td>2</td><td>1</td><td>41</td></tr>
+<tr><td>3</td><td>2</td><td>3</td></tr>
+<tr><td>4</td><td>3</td><td>53</td></tr>
+<tr><td>5</td><td>4</td><td>40</td></tr>
+<tr><td>6</td><td>5</td><td>100</td></tr>
+<tr><td>7</td><td>6</td><td>5</td></tr>
+<tr><td>8</td><td>7</td><td>3</td></tr>
+<tr><td>9</td><td>8</td><td>108</td></tr>
+<tr><td>10</td><td>9</td><td>9</td></tr>
+</tbody>
+</table>
+<h2>Graficos explicativos</h2>
+<section class="figure-block">
+<h3>Top 10 por degree centrality</h3>
+<img src="plots/top_degree.png" alt="Top 10 por degree centrality" />
+<p class="caption">Muestra los usuarios con mayor numero de conexiones directas dentro de la red.</p>
+</section>
+<section class="figure-block">
+<h3>Top 10 por betweenness centrality</h3>
+<img src="plots/top_betweenness.png" alt="Top 10 por betweenness centrality" />
+<p class="caption">Destaca los nodos que actuan como puentes entre regiones de la red social.</p>
+</section>
+<section class="figure-block">
+<h3>Top 10 por closeness centrality</h3>
+<img src="plots/top_closeness.png" alt="Top 10 por closeness centrality" />
+<p class="caption">Resume los nodos con acceso mas rapido al resto de usuarios de la red.</p>
+</section>
+<section class="figure-block">
+<h3>Relacion entre centralidades</h3>
+<img src="plots/centrality_relationships.png" alt="Relacion entre centralidades" />
+<p class="caption">Cada punto representa un usuario. El eje X usa degree centrality, el eje Y betweenness centrality y el color closeness centrality.</p>
+</section>
+<section class="figure-block">
+<h3>Vista global de toda la red con Cairo</h3>
+<img src="plots/facebook_red_completa_cairo.png" alt="Vista global de toda la red con Cairo" />
+<p class="caption">Vista general de la red completa renderizada con Cairo. El tamano del nodo refleja su grado, el color resume su nivel de insercion en el nucleo de la red y solo se etiquetan los 10 nodos mas populares para mantener legibilidad.</p>
+</section>
+<h2>Patrones estructurales de la red</h2>
+<table>
+<thead><tr><th>Indicador</th><th>Valor</th></tr></thead>
+<tbody>
+<tr><td>Componentes conectados</td><td>1</td></tr>
+<tr><td>Tamano del componente gigante</td><td>4039</td></tr>
+<tr><td>Porcentaje del componente gigante</td><td>100.0%</td></tr>
+<tr><td>Densidad</td><td>0.01081996</td></tr>
+<tr><td>Grado promedio</td><td>43.691</td></tr>
+<tr><td>Grado mediano</td><td>25.0</td></tr>
+<tr><td>Percentil 90 del grado</td><td>113.0</td></tr>
+<tr><td>Grado maximo</td><td>1045</td></tr>
+<tr><td>Clustering global</td><td>0.519174</td></tr>
+<tr><td>Clustering local promedio</td><td>0.605547</td></tr>
+<tr><td>Assortativity</td><td>0.063577</td></tr>
+<tr><td>Diametro</td><td>8</td></tr>
+<tr><td>Radio</td><td>4</td></tr>
+<tr><td>Maximo k-core</td><td>115</td></tr>
+<tr><td>Promedio de k-core</td><td>26.8797</td></tr>
+<tr><td>Participacion de los 10 nodos mas conectados</td><td>2.72%</td></tr>
+</tbody>
+</table>
+<h2>Patrones observados en la red social</h2>
+<ul>
+<li>La red esta dominada por un componente gigante, lo que indica alta conectividad global entre usuarios.</li>
+<li>La combinacion de baja densidad con diametro corto es consistente con un patron small-world.</li>
+<li>El clustering es mucho mayor que la densidad, una senal tipica de triadas y comunidades locales en redes sociales.</li>
+<li>La assortativity positiva sugiere que nodos con grado parecido tienden a conectarse entre si.</li>
+</ul>
+<h2>Interpretacion desde la perspectiva de red social</h2>
+<ul>
+<li>Desde el punto de vista de una red social, la presencia de un componente gigante del 100.0% indica que la mayoria de los usuarios pertenece a una misma conversacion amplia y potencialmente interconectada.</li>
+<li>La distribucion de grados y el grado maximo de 1045 sugieren una estructura con hubs: pocos usuarios concentran muchas conexiones y actuan como focos de atencion, visibilidad o influencia.</li>
+<li>El diametro de 8 y el radio de 4 muestran que la informacion puede viajar en pocos pasos, lo que es coherente con dinamicas de difusion rapida, viralidad y alcance transversal.</li>
+<li>El clustering global de 0.5192 y el clustering local promedio de 0.6055 refuerzan la idea de microcomunidades o circulos sociales densos, donde amigos de amigos tambien tienden a estar conectados.</li>
+<li>La existencia de un maximo k-core de 115 apunta a un nucleo central muy cohesionado. En terminos sociales, ese nucleo suele representar usuarios muy integrados en la red, con alta capacidad de mantener conversaciones persistentes o amplificar contenido.</li>
+<li>La assortativity positiva de 0.0636 sugiere una ligera tendencia a que usuarios con niveles similares de conectividad se relacionen entre si, lo que favorece la formacion de estratos o capas sociales relativamente homogeneas.</li>
+<li>La participacion del 2.72% de las conexiones en solo los 10 nodos mas conectados apunta a una concentracion moderada de la atencion. Esto es relevante para marketing, difusion de mensajes y riesgos de sobredependencia de unos pocos actores.</li>
+</ul>
+<h2>Lectura a la luz de tendencias recientes</h2>
+<ul>
+<li>Las redes sociales actuales suelen combinar fragmentacion en comunidades pequenas con una capa de hubs muy visibles. El contraste entre alto clustering y baja densidad observado aqui es compatible con esa tendencia.</li>
+<li>La logica de creadores, cuentas puente e intermediarios sigue siendo clave: los nodos con alta betweenness pueden conectar comunidades que de otro modo permanecerian separadas, influyendo en que contenidos cruzan fronteras tematicas.</li>
+<li>Las plataformas recientes muestran fuerte competencia por la atencion. En este contexto, los hubs identificados por degree centrality y los nodos cercanos al nucleo por k-core son candidatos naturales a concentrar alcance organico y acelerar cascadas de difusion.</li>
+<li>El patron small-world observado implica beneficios y riesgos: facilita descubrimiento de contenido y coordinacion social, pero tambien hace mas probable la propagacion rapida de desinformacion, rumores o comportamientos imitativos.</li>
+<li>El peso del componente gigante sugiere que la plataforma mantiene una base relacional comun. Eso suele favorecer recomendaciones, visibilidad cruzada y expansion de conversaciones, aunque tambien puede aumentar polarizacion cuando los puentes entre grupos son pocos y muy concentrados.</li>
+</ul>
+<section class="figure-block">
+<h3>Distribucion de grados</h3>
+<img src="plots/degree_distribution.png" alt="Distribucion de grados" />
+<p class="caption">La forma de la distribucion ayuda a detectar hubs y desigualdad en el numero de conexiones.</p>
+</section>
+<section class="figure-block">
+<h3>Distribucion de grados (escala log-log)</h3>
+<img src="plots/degree_distribution_loglog.png" alt="Distribucion de grados (escala log-log)" />
+<p class="caption">La escala log-log permite verificar si la red sigue una ley de potencia P(k) ~ k^(-γ). El exponente ajustado es γ ≈ 1.18. Valores tipicos en redes sociales reales: 2 &lt; γ &lt; 3. Una linea recta en log-log confirma estructura libre de escala (scale-free).</p>
+</section>
+<section class="figure-block">
+<h3>Distribucion de k-core</h3>
+<img src="plots/core_distribution.png" alt="Distribucion de k-core" />
+<p class="caption">Resume que tan profundamente insertados estan los nodos dentro de nucleos densos de la red.</p>
+</section>
+<h2>Subgrafo de los 10 nodos mas populares</h2>
+<table>
+<thead><tr><th>Indicador</th><th>Valor</th></tr></thead>
+<tbody>
+<tr><td>Nodos en el subgrafo</td><td>10</td></tr>
+<tr><td>Aristas entre los 10 mas populares</td><td>11</td></tr>
+<tr><td>Densidad del subgrafo</td><td>0.244444</td></tr>
+</tbody>
+</table>
+<section class="figure-block">
+<h3>Conexiones entre los 10 nodos mas populares</h3>
+<img src="plots/top10_populares_subgrafo.png" alt="Conexiones entre los 10 nodos mas populares" />
+<p class="caption">Este subgrafo muestra solo los usuarios con mayor degree centrality y las conexiones que existen entre ellos. Permite ver si los hubs tambien estan conectados entre si o si concentran enlaces hacia la periferia.</p>
+</section>
+<section class="figure-block">
+<h3>Mapa de calor de conexiones del top 10</h3>
+<img src="plots/top10_populares_heatmap.png" alt="Mapa de calor de conexiones del top 10" />
+<p class="caption">El mapa de calor resume la matriz de adyacencia del top 10. Las celdas con valor 1 indican conexion directa entre dos nodos populares y facilitan detectar bloques conectados sin la maraña visual del grafo completo.</p>
+</section>
+<h2>Top 10 por degree centrality</h2>
+<table>
+<thead><tr><th>Rank</th><th>Nodo</th><th>Valor</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>107</td><td>0.258791</td></tr>
+<tr><td>2</td><td>1684</td><td>0.196137</td></tr>
+<tr><td>3</td><td>1912</td><td>0.186974</td></tr>
+<tr><td>4</td><td>3437</td><td>0.135463</td></tr>
+<tr><td>5</td><td>0</td><td>0.085934</td></tr>
+<tr><td>6</td><td>2543</td><td>0.072808</td></tr>
+<tr><td>7</td><td>2347</td><td>0.072065</td></tr>
+<tr><td>8</td><td>1888</td><td>0.062902</td></tr>
+<tr><td>9</td><td>1800</td><td>0.060674</td></tr>
+<tr><td>10</td><td>1663</td><td>0.058197</td></tr>
+</tbody>
+</table>
+<h2>Top 10 por betweenness centrality</h2>
+<table>
+<thead><tr><th>Rank</th><th>Nodo</th><th>Valor</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>107</td><td>0.480518</td></tr>
+<tr><td>2</td><td>1684</td><td>0.337797</td></tr>
+<tr><td>3</td><td>3437</td><td>0.236115</td></tr>
+<tr><td>4</td><td>1912</td><td>0.229295</td></tr>
+<tr><td>5</td><td>1085</td><td>0.149015</td></tr>
+<tr><td>6</td><td>0</td><td>0.146306</td></tr>
+<tr><td>7</td><td>698</td><td>0.11533</td></tr>
+<tr><td>8</td><td>567</td><td>0.09631</td></tr>
+<tr><td>9</td><td>58</td><td>0.08436</td></tr>
+<tr><td>10</td><td>428</td><td>0.064309</td></tr>
+</tbody>
+</table>
+<h2>Top 10 por closeness centrality</h2>
+<table>
+<thead><tr><th>Rank</th><th>Nodo</th><th>Valor</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>107</td><td>0.459699</td></tr>
+<tr><td>2</td><td>58</td><td>0.397402</td></tr>
+<tr><td>3</td><td>428</td><td>0.394837</td></tr>
+<tr><td>4</td><td>563</td><td>0.393913</td></tr>
+<tr><td>5</td><td>1684</td><td>0.393606</td></tr>
+<tr><td>6</td><td>171</td><td>0.370493</td></tr>
+<tr><td>7</td><td>348</td><td>0.369916</td></tr>
+<tr><td>8</td><td>483</td><td>0.369848</td></tr>
+<tr><td>9</td><td>414</td><td>0.369543</td></tr>
+<tr><td>10</td><td>376</td><td>0.366558</td></tr>
+</tbody>
+</table>
+<h2>Conclusiones</h2>
+<ul>
+<li>Los nodos que se repiten en varios rankings suelen ser los actores mas influyentes de la red.</li>
+<li>Degree centrality es util para detectar popularidad local.</li>
+<li>Betweenness centrality es mas util para detectar intermediarios clave y posibles cuellos de botella.</li>
+<li>Closeness centrality ayuda a encontrar nodos eficaces para difusion rapida de informacion.</li>
+<li>Para visualizacion interactiva en Gephi, usa el archivo facebook_network.gexf generado por este script.</li>
+</ul>
+</body>
+</html>

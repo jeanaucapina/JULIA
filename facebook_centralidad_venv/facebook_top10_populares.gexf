@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gexf xmlns="http://www.gexf.net/1.2draft" version="1.2">
+  <graph mode="static" defaultedgetype="undirected">
+    <attributes class="node">
+      <attribute id="0" title="raw_id" type="integer" />
+      <attribute id="1" title="global_degree_centrality" type="double" />
+    </attributes>
+    <nodes>
+      <node id="107" label="107">
+        <attvalues>
+          <attvalue for="0" value="107" />
+          <attvalue for="1" value="0.258791480931154" />
+        </attvalues>
+      </node>
+      <node id="1684" label="1684">
+        <attvalues>
+          <attvalue for="0" value="1684" />
+          <attvalue for="1" value="0.1961367013372957" />
+        </attvalues>
+      </node>
+      <node id="1912" label="1912">
+        <attvalues>
+          <attvalue for="0" value="1912" />
+          <attvalue for="1" value="0.18697374938088163" />
+        </attvalues>
+      </node>
+      <node id="3437" label="3437">
+        <attvalues>
+          <attvalue for="0" value="3437" />
+          <attvalue for="1" value="0.13546310054482416" />
+        </attvalues>
+      </node>
+      <node id="0" label="0">
+        <attvalues>
+          <attvalue for="0" value="0" />
+          <attvalue for="1" value="0.08593363051015354" />
+        </attvalues>
+      </node>
+      <node id="2543" label="2543">
+        <attvalues>
+          <attvalue for="0" value="2543" />
+          <attvalue for="1" value="0.07280832095096582" />
+        </attvalues>
+      </node>
+      <node id="2347" label="2347">
+        <attvalues>
+          <attvalue for="0" value="2347" />
+          <attvalue for="1" value="0.07206537890044576" />
+        </attvalues>
+      </node>
+      <node id="1888" label="1888">
+        <attvalues>
+          <attvalue for="0" value="1888" />
+          <attvalue for="1" value="0.0629024269440317" />
+        </attvalues>
+      </node>
+      <node id="1800" label="1800">
+        <attvalues>
+          <attvalue for="0" value="1800" />
+          <attvalue for="1" value="0.06067360079247152" />
+        </attvalues>
+      </node>
+      <node id="1663" label="1663">
+        <attvalues>
+          <attvalue for="0" value="1663" />
+          <attvalue for="1" value="0.058197127290737984" />
+        </attvalues>
+      </node>
+    </nodes>
+    <edges>
+      <edge id="e1" source="107" target="1684" />
+      <edge id="e2" source="107" target="0" />
+      <edge id="e3" source="107" target="1888" />
+      <edge id="e4" source="107" target="1800" />
+      <edge id="e5" source="107" target="1663" />
+      <edge id="e6" source="1912" target="2543" />
+      <edge id="e7" source="1912" target="2347" />
+      <edge id="e8" source="2543" target="2347" />
+      <edge id="e9" source="1888" target="1800" />
+      <edge id="e10" source="1888" target="1663" />
+      <edge id="e11" source="1800" target="1663" />
+    </edges>
+  </graph>
+</gexf>
