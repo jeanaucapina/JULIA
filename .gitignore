@@ -1,0 +1,22 @@
+# Julia
+*.jl.cov
+*.jl.*.cov
+*.jl.mem
+
+# LaTeX build artifacts
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.nav
+*.out
+*.snm
+*.toc
+*.synctex.gz
+
+# Local VS Code
+.vscode/*
+!.vscode/settings.json
+
+# Local agent/context files
+CLAUDE_*
