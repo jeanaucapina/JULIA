@@ -31,6 +31,29 @@ Este proyecto aplica teoria de grafos a un problema de ciberseguridad: detectar 
 - Evaluar resiliencia con nodos de articulacion y puentes.
 - Validar la metodologia con trafico real del dataset IoT-23.
 
+## Enunciado del problema (escenario)
+
+### Problema a resolver
+
+Se requiere un procedimiento reproducible para detectar nodos y comportamientos anómalos en una red de datos, priorizar activos críticos y evaluar capacidad de respuesta ante propagación de malware.
+
+### Escenario de trabajo
+
+- Escenario 1 (controlado): red corporativa modelada como grafo ponderado.
+- Escenario 2 (real): capturas IoT-23 con etiquetas de trafico benigno/malicioso.
+- Resultado esperado: identificar nodos/IPs de alto riesgo con criterio cuantitativo e interpretable.
+
+## Procedimiento de implementacion (paso a paso)
+
+1. Construir el grafo de la red (nodos, aristas, pesos).
+2. Calcular metricas topologicas por nodo (DC, BC, CC, PR).
+3. Integrar metricas en un score compuesto y estandarizar con z-score.
+4. Definir umbral y marcar nodos anómalos.
+5. Simular propagacion con SIR para distintos nodos iniciales.
+6. Evaluar resiliencia con articulaciones, puentes y $\kappa$.
+7. Repetir la deteccion en IoT-23 a nivel IP y validar contra `label`.
+8. Priorizar acciones de hardening con base en evidencia numerica.
+
 ## Metodologia general
 
 ### Como se hizo
@@ -39,8 +62,82 @@ Este proyecto aplica teoria de grafos a un problema de ciberseguridad: detectar 
 2. Se calcularon metricas topologicas para cada nodo.
 3. Se combino la informacion en un score estadistico para detectar anomalias.
 4. Se simulo la propagacion de malware sobre la topologia real del grafo.
-5. Se evaluo el dano estructural ante fallos dirigidos.
+5. Se evaluo el impacto estructural ante fallos dirigidos.
 6. Se replico el enfoque sobre capturas reales de IoT-23.
+
+### Logica del metodo (resumen rapido)
+
+- Parte 1: modelado del sistema como grafo para representar conectividad real.
+- Parte 2: uso de centralidades para cuantificar importancia topologica por nodo.
+- Parte 3: combinacion de metricas en un score + z-score para separar outliers.
+- Parte 4: simulacion SIR para medir propagacion segun nodo inicial y parametros.
+- Parte 5: analisis de conectividad (articulaciones, puentes, $\kappa$) para estimar robustez.
+- Bonus IoT-23: deteccion de botnets mediante score por IP y validacion contra etiquetas reales.
+
+## Modelos matematicos y variables
+
+### Modelo 1: score de anomalia topologica
+
+$$
+score(v)=0.5\,BC(v)+0.3\,DC(v)+0.2\,PR(v)
+$$
+
+Variables:
+
+- $v$: nodo evaluado.
+- $BC(v)$: betweenness centrality del nodo $v$.
+- $DC(v)$: degree centrality del nodo $v$.
+- $PR(v)$: PageRank del nodo $v$.
+- 0.5, 0.3, 0.2: pesos relativos de cada metrica en el score.
+
+### Modelo 2: estandarizacion estadistica (z-score)
+
+$$
+z(v)=\frac{score(v)-\mu}{\sigma}
+$$
+
+Variables:
+
+- $z(v)$: distancia estandarizada del nodo respecto al promedio.
+- $\mu$: media de scores en todos los nodos.
+- $\sigma$: desviacion estandar de scores.
+- Regla usada: nodo anómalo si $z(v)>1.5$.
+
+### Modelo 3: dinamica SIR sobre grafo
+
+Transiciones por paso temporal:
+
+$$
+S \rightarrow I \text{ con probabilidad } \beta, \quad I \rightarrow R \text{ con probabilidad } \gamma
+$$
+
+$$
+R_0=\frac{\beta}{\gamma}
+$$
+
+Variables:
+
+- $S$: nodos susceptibles.
+- $I$: nodos infectados.
+- $R$: nodos recuperados.
+- $\beta$: tasa de contagio.
+- $\gamma$: tasa de recuperacion.
+- $R_0$: potencial de propagacion del brote.
+
+### Modelo 4: score de deteccion botnet en IoT-23
+
+$$
+score_{botnet}(v)=0.35\,%Mal+0.25\,DC+0.20\,BC+0.20\,Ports_{norm}
+$$
+
+Variables:
+
+- $%Mal$: proporcion de flujos etiquetados como maliciosos para la IP.
+- $DC$: centralidad de grado de la IP en el grafo dirigido.
+- $BC$: intermediacion de la IP en rutas de comunicacion.
+- $Ports_{norm}$: diversidad de puertos normalizada.
+- $score_{botnet}(v)$: puntaje final de riesgo botnet por IP.
+- Decision: IP candidata si su z-score supera el umbral definido.
 
 ### Implementacion
 
@@ -62,6 +159,12 @@ julia --project=Proyecto_Unidad1 Proyecto_Unidad1/practica_redes_aucapina.jl
 - Pesos interpretados como capacidad de enlace.
 - Topologia jerarquica con firewall, routers, servidores, hosts e IoT.
 
+### Metodo aplicado: modelado del grafo
+
+- Se definio un grafo no dirigido porque la infraestructura interna se analizo como enlaces bidireccionales.
+- Se asignaron pesos para reflejar capacidad relativa de cada enlace y no tratar todas las conexiones como equivalentes.
+- Se verifico conectividad global y densidad para obtener una linea base antes del analisis de riesgo.
+
 ### Resultado clave
 
 - Densidad = 0.1211.
@@ -82,6 +185,14 @@ Una densidad baja anticipa fragilidad frente a fallos dirigidos sobre nodos estr
 - Betweenness Centrality.
 - Closeness Centrality.
 - PageRank.
+
+### Metodo aplicado: centralidades
+
+- Degree Centrality (DC): mide alcance local inmediato.
+- Betweenness Centrality (BC): mide control de rutas minimas entre pares de nodos.
+- Closeness Centrality (CC): mide rapidez promedio para alcanzar el resto de la red.
+- PageRank (PR): mide relevancia por estructura global y no solo por cantidad de enlaces.
+- Se compararon las cuatro metricas para evitar decisiones basadas en un unico indicador.
 
 ### Hallazgo principal
 
@@ -114,6 +225,12 @@ $$
 $$
 z(v)=\frac{score(v)-\mu}{\sigma}
 $$
+
+### Metodo aplicado: deteccion estadistica
+
+- Se normalizaron metricas y se construyo un score lineal ponderado para capturar riesgo operativo y estructural.
+- Se transformo el score a z-score para comparar nodos en la misma escala estadistica.
+- Regla de decision: outlier si $z>1.5$, priorizando sensibilidad sin sobredetectar nodos comunes.
 
 ### Umbral de decision
 
@@ -152,7 +269,13 @@ El score compuesto redujo falsos positivos al combinar conectividad, intermediac
 
 ### Interpretacion estructural
 
-La posicion topologica del nodo inicial condiciona mas el dano que el valor global de $R_0$.
+La posicion topologica del nodo inicial condiciona mas el impacto de la propagacion que el valor global de $R_0$.
+
+### Metodo aplicado: simulacion SIR
+
+- Se utilizo el modelo SIR discreto sobre el grafo: cada paso actualiza transiciones S->I con probabilidad $\beta$ e I->R con probabilidad $\gamma$.
+- Se ejecutaron escenarios con distintos nodos semilla para aislar el efecto de la posicion topologica inicial.
+- Se compararon curvas temporales y estado final para medir alcance del brote en cada escenario.
 
 ![Comparacion de curvas SIR](sir_comparacion.png){width=62%}
 
@@ -168,6 +291,12 @@ La posicion topologica del nodo inicial condiciona mas el dano que el valor glob
 ### Lectura operativa
 
 La topologia actua como barrera natural cuando el compromiso inicial ocurre en un nodo hoja.
+
+### Metodo aplicado: sensibilidad y cuarentena
+
+- Se hizo un barrido paramétrico de $\beta$ para evaluar sensibilidad del brote bajo el mismo origen periferico.
+- Se agrego un experimento de cuarentena removiendo de forma temprana un nodo central para medir reduccion de alcance.
+- El resultado permite traducir simulacion en controles operativos concretos (aislamiento y segmentacion).
 
 ![Barrido de beta en la simulacion SIR](sir_betas.png){width=62%}
 
@@ -191,6 +320,13 @@ La topologia actua como barrera natural cuando el compromiso inicial ocurre en u
 - La red no es 2-conexa.
 - Existen multiples enlaces sin redundancia.
 - Hay puntos unicos de fallo en el backbone y la distribucion.
+
+### Metodo aplicado: resiliencia topologica
+
+- Nodos de articulacion: se identificaron removiendo un nodo y verificando si aumenta el numero de componentes conexas.
+- Puentes: se identificaron removiendo una arista y verificando si la red se fragmenta.
+- Conectividad por nodos ($\kappa$): se calculo como el minimo numero de nodos cuya remocion desconecta la red.
+- Esta combinacion permite medir robustez desde nivel local (enlace) hasta nivel global (topologia completa).
 
 ### Nodo mas critico
 
@@ -230,6 +366,16 @@ El objetivo no es agregar enlaces indiscriminadamente, sino incorporar rutas alt
 - Umbral por z-score.
 - Comparacion con ground truth del campo `label`.
 
+### Metodo usado para detectar botnets
+
+1. Extraccion de flujos desde `conn.log.labeled` y limpieza de registros inconsistentes.
+2. Agregacion por IP origen para obtener comportamiento por emisor (frecuencia, destinos y puertos).
+3. Construccion de un grafo dirigido donde cada arista representa comunicacion observada.
+4. Calculo de variables por IP: porcentaje de trafico malicioso, DC, BC y diversidad de puertos normalizada.
+5. Calculo de $score_{botnet}(v)$ como combinacion ponderada de esas variables.
+6. Estandarizacion con z-score y marcacion de candidatas cuando superan el umbral.
+7. Validacion con etiquetas reales (`label`) y medicion con matriz de confusion y F1.
+
 $$
 score_{botnet}(v)=0.35\,%Mal+0.25\,DC+0.20\,BC+0.20\,Ports_{norm}
 $$
@@ -257,6 +403,12 @@ $$
 ### Variable mas discriminante
 
 La combinacion de porcentaje malicioso y diversidad de puertos contactados identifico con claridad el comportamiento botnet.
+
+### Que significa esto en terminos simples
+
+- Una IP botnet tipicamente habla con muchos destinos y prueba multiples puertos en poco tiempo.
+- Ese patron produce simultaneamente alto porcentaje malicioso y alta diversidad de puertos.
+- Cuando ambas variables suben juntas, la separacion frente a trafico normal se vuelve marcada.
 
 ![Z-score de deteccion para Mirai](botnet_Capture11_Miraiscan_zscore.png){width=50%}
 
