@@ -10,6 +10,7 @@ classoption:
 theme: Madrid
 colortheme: dolphin
 fontsize: 10pt
+slide-level: 3
 header-includes:
   - \usepackage{booktabs}
   - \usepackage{array}
@@ -372,9 +373,12 @@ El objetivo no es agregar enlaces indiscriminadamente, sino incorporar rutas alt
 2. Agregacion por IP origen para obtener comportamiento por emisor (frecuencia, destinos y puertos).
 3. Construccion de un grafo dirigido donde cada arista representa comunicacion observada.
 4. Calculo de variables por IP: porcentaje de trafico malicioso, DC, BC y diversidad de puertos normalizada.
-5. Calculo de $score_{botnet}(v)$ como combinacion ponderada de esas variables.
-6. Estandarizacion con z-score y marcacion de candidatas cuando superan el umbral.
-7. Validacion con etiquetas reales (`label`) y medicion con matriz de confusion y F1.
+
+### Metodo usado para detectar botnets (continuacion)
+
+1. Calculo de $score_{botnet}(v)$ como combinacion ponderada de esas variables.
+2. Estandarizacion con z-score y marcacion de candidatas cuando superan el umbral.
+3. Validacion con etiquetas reales (`label`) y medicion con matriz de confusion y F1.
 
 $$
 score_{botnet}(v)=0.35\,%Mal+0.25\,DC+0.20\,BC+0.20\,Ports_{norm}
@@ -414,18 +418,24 @@ La combinacion de porcentaje malicioso y diversidad de puertos contactados ident
 
 ![Matriz de confusion multicaputra](botnet_confusion_multi.png){width=50%}
 
-### Como interpretar las graficas finales del desafio
+### Interpretacion: z-score por IP
 
 - Z-score por IP (Mirai):
   - Eje X: IPs evaluadas.
   - Eje Y: distancia estandarizada del score botnet respecto a la media.
   - Lectura: una IP con $z \gg 1.5$ es un outlier operacional; en este caso, la IP infectada se separa de forma extrema ($z>8$), lo que reduce ambiguedad.
+
+### Interpretacion: matriz de confusion
+
 - Matriz de confusion multicaptura:
   - Filas: clase real (`label`).
   - Columnas: clase predicha por el modelo.
   - Diagonal principal: aciertos; celdas fuera de la diagonal: errores.
   - Lectura del resultado: la concentracion en la diagonal para capturas Mirai explica el F1=1.0 reportado.
-- Implicacion practica: cuando ambas graficas coinciden (outlier extremo + matriz limpia), la deteccion no solo es correcta, sino tambien interpretable para toma de decisiones en SOC.
+
+### Implicacion practica
+
+- Cuando ambas graficas coinciden (outlier extremo + matriz limpia), la deteccion no solo es correcta, sino tambien interpretable para toma de decisiones en SOC.
 
 ## Integracion de resultados
 
