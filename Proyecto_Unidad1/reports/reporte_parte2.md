@@ -129,13 +129,13 @@ pr_raw = pagerank(G_simple, 0.85)
 
 #### Grafo: nodos coloreados por Betweenness Centrality
 
-![Grafo de Centralidad (Betweenness)](grafo_centralidad_bc.png)
+![Grafo de Centralidad (Betweenness)](../results/figures/grafo_centralidad_bc.png)
 
 *Rojo intenso = BC alta (cuello de botella), azul = BC baja. Tamaño proporcional a BC. Valor BC anotado dentro de cada nodo.*
 
 #### Gráfico de barras: las cuatro métricas
 
-![Barras de Centralidad](centralidad_barras.png)
+![Barras de Centralidad](../results/figures/centralidad_barras.png)
 
 *Cuatro subgráficos (DC, BC, CC, PR) en escala individual. Permite comparar la distribución de cada métrica a través de los 20 nodos.*
 
@@ -147,7 +147,7 @@ pr_raw = pagerank(G_simple, 0.85)
 
 #### Heatmap: top-5 por BC
 
-![Heatmap Centralidad](centralidad_heatmap.png)
+![Heatmap Centralidad](../results/figures/centralidad_heatmap.png)
 
 *Intensidad de color proporcional al valor de la métrica (verde=bajo, rojo=alto). Permite identificar el perfil de centralidad de cada nodo crítico de un vistazo.*
 

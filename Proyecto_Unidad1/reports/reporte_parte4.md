@@ -149,7 +149,7 @@ Para ilustrar el efecto real de cuarentena, ver la comparación con origen Route
 
 ### 4.1 Curvas SIR: IoT-Device1 vs Router-Core
 
-![Curvas SIR comparación](sir_comparacion.png)
+![Curvas SIR comparación](../results/figures/sir_comparacion.png)
 
 *Línea sólida = origen IoT-Device1 (epidemia fallida). Línea discontinua = origen Router-Core (epidemia exitosa, 50% tasa de ataque). Azul=S, Rojo=I, Verde=R.*
 
@@ -157,7 +157,7 @@ Para ilustrar el efecto real de cuarentena, ver la comparación con origen Route
 
 ### 4.2 Barrido de β: Efecto en Infectados I(t)
 
-![Barrido Beta SIR](sir_betas.png)
+![Barrido Beta SIR](../results/figures/sir_betas.png)
 
 *Cada curva representa I(t) para un valor distinto de β. Gris=β=0.1, azul=β=0.2, naranja=β=0.3, rojo=β=0.5.*
 
@@ -165,13 +165,13 @@ Para ilustrar el efecto real de cuarentena, ver la comparación con origen Route
 
 ### 4.3 Efecto Cuarentena
 
-![Cuarentena SIR](sir_cuarentena.png)
+![Cuarentena SIR](../results/figures/sir_cuarentena.png)
 
 *Comparación I(t) y R(t) con/sin cuarentena de Router-LAN-B en paso 5. Línea punteada vertical = momento de cuarentena.*
 
 ### 4.4 Estado Final sobre el Grafo
 
-![Estado Final SIR](sir_estado_final.png)
+![Estado Final SIR](../results/figures/sir_estado_final.png)
 
 *Círculo azul = Susceptible (S). Estrella roja = Infectado (I). Cuadrado verde = Recuperado (R). Estado al paso 20 desde IoT-Device1.*
 

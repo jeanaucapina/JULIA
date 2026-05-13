@@ -167,7 +167,7 @@ Nodos que pierden conectividad con el componente mayor: **11 nodos (55% de la re
 
 ### 4.1 Grafo con Nodos de Articulación y Puentes Resaltados
 
-![Grafo de Resiliencia](resiliencia_grafo.png)
+![Grafo de Resiliencia](../results/figures/resiliencia_grafo.png)
 
 *Estrellas naranja = nodos de articulación. Aristas rojas gruesas = puentes. Círculos azules = nodos normales. Z-score anotado sobre cada nodo de articulación.*
 
@@ -175,7 +175,7 @@ Nodos que pierden conectividad con el componente mayor: **11 nodos (55% de la re
 
 ### 4.2 Impacto por Eliminación de Nodos de Articulación
 
-![Impacto por Eliminación](resiliencia_impacto.png)
+![Impacto por Eliminación](../results/figures/resiliencia_impacto.png)
 
 *Barras naranja/rojo = número de nodos que quedan aislados del componente mayor al eliminar cada nodo de articulación.*
 
@@ -183,7 +183,7 @@ Nodos que pierden conectividad con el componente mayor: **11 nodos (55% de la re
 
 ### 4.3 Red tras Eliminación de Router-Core
 
-![Componentes sin Router-Core](resiliencia_componentes.png)
+![Componentes sin Router-Core](../results/figures/resiliencia_componentes.png)
 
 *Cada color representa un componente conexo independiente tras eliminar Router-Core. La X roja marca el nodo eliminado.*
 

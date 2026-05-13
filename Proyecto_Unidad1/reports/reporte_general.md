@@ -41,7 +41,7 @@ Grafo no dirigido ponderado G = (V, E, w) representando una red corporativa sint
 
 ### Visualización
 
-![Grafo de Red Corporativa](grafo_red.png)
+![Grafo de Red Corporativa](../results/figures/grafo_red.png)
 
 *Colores por tipo: rojo=firewall, naranja=router, azul=servidor, verde=host, morado=IoT/impresora.*
 
@@ -73,9 +73,9 @@ Para cada nodo: Degree Centrality (DC), Betweenness Centrality (BC), Closeness C
 
 ### Visualizaciones
 
-![Grafo Centralidad BC](grafo_centralidad_bc.png)
-![Barras Centralidad](centralidad_barras.png)
-![Heatmap Centralidad](centralidad_heatmap.png)
+![Grafo Centralidad BC](../results/figures/grafo_centralidad_bc.png)
+![Barras Centralidad](../results/figures/centralidad_barras.png)
+![Heatmap Centralidad](../results/figures/centralidad_heatmap.png)
 
 ### Respuestas
 
@@ -119,9 +119,9 @@ Los 3 routers de agregación son los únicos anómalos. Los 17 nodos restantes t
 
 ### Visualizaciones
 
-![Grafo Anomalías](grafo_anomalias.png)
-![Scatter Anomalías](anomalias_scatter.png)
-![Z-Score Barras](zscore_barras.png)
+![Grafo Anomalías](../results/figures/grafo_anomalias.png)
+![Scatter Anomalías](../results/figures/anomalias_scatter.png)
+![Z-Score Barras](../results/figures/zscore_barras.png)
 
 ### Respuestas
 
@@ -187,7 +187,7 @@ Esto explica por qué la topología debe interpretarse junto con el modelo epide
 
 ### Visualizaciones e Interpretación
 
-![Curvas SIR Comparación](sir_comparacion.png)
+![Curvas SIR Comparación](../results/figures/sir_comparacion.png)
 
 **Qué representa:** evolución temporal de los tres estados S, I y R en dos escenarios: origen IoT-Device1 y origen Router-Core.
 
@@ -202,7 +202,7 @@ Esto explica por qué la topología debe interpretarse junto con el modelo epide
 
 En términos de seguridad, este gráfico no solo muestra “cuántos nodos se infectan”, sino también **cuándo ocurre la fase crítica**. Ese momento es el punto ideal para intervenir con cuarentena o segmentación de emergencia.
 
-![Barrido Beta](sir_betas.png)
+![Barrido Beta](../results/figures/sir_betas.png)
 
 **Qué representa:** comportamiento de la cantidad de infectados I(t) para distintos valores de $\beta$ manteniendo fijo el nodo inicial en IoT-Device1.
 
@@ -214,7 +214,7 @@ En términos de seguridad, este gráfico no solo muestra “cuántos nodos se in
 
 La interpretación es que **el cuello de botella no es solo la biología del malware, sino la estructura del grafo**. Desde un nodo mal posicionado, la red misma actúa como contención natural.
 
-![Cuarentena](sir_cuarentena.png)
+![Cuarentena](../results/figures/sir_cuarentena.png)
 
 **Qué representa:** efecto esperado de aplicar una medida de cuarentena sobre el nodo de mayor impacto estructural durante la fase de propagación.
 
@@ -222,7 +222,7 @@ La interpretación es que **el cuello de botella no es solo la biología del mal
 
 **Qué demuestra el gráfico:** la cuarentena temprana reduce el número de nodos alcanzables porque elimina aristas críticas del grafo en el momento en que más importan. No se trata solo de “apagar un nodo”, sino de **romper el corredor topológico por el que el malware se está expandiendo**.
 
-![Estado Final](sir_estado_final.png)
+![Estado Final](../results/figures/sir_estado_final.png)
 
 **Qué representa:** estado final de cada nodo sobre el grafo al terminar la simulación.
 
@@ -295,7 +295,7 @@ La lectura práctica es la siguiente:
 
 ### Visualizaciones e Interpretación
 
-![Resiliencia Grafo](resiliencia_grafo.png)
+![Resiliencia Grafo](../results/figures/resiliencia_grafo.png)
 
 **Qué representa:** el grafo completo resaltando nodos de articulación y enlaces puente.
 
@@ -305,7 +305,7 @@ La lectura práctica es la siguiente:
 
 **Qué demuestra el gráfico:** permite ver de un vistazo dónde está la fragilidad estructural. No todos los nodos importantes son igualmente peligrosos; este gráfico revela cuáles sostienen realmente la conectividad global.
 
-![Impacto por Eliminación](resiliencia_impacto.png)
+![Impacto por Eliminación](../results/figures/resiliencia_impacto.png)
 
 **Qué representa:** número de nodos que quedan aislados del componente principal cuando falla cada nodo de articulación.
 
@@ -313,7 +313,7 @@ La lectura práctica es la siguiente:
 
 **Qué demuestra el gráfico:** Router-Core produce el mayor impacto porque no solo conecta hosts, sino también segmentos enteros. Este gráfico traduce la idea abstracta de “criticidad” en una medida concreta de daño esperado.
 
-![Componentes sin Core](resiliencia_componentes.png)
+![Componentes sin Core](../results/figures/resiliencia_componentes.png)
 
 **Qué representa:** cómo queda fragmentada la red si se elimina Router-Core.
 
@@ -380,13 +380,13 @@ Detección de comunidades: Label Propagation (30 iteraciones, seed=42).
 
 ### Visualizaciones
 
-![Comparación Capturas](botnet_comparacion.png)
-![Scatter Capture 1-1](botnet_Capture11_Miraiscan_scatter.png)
-![Z-score Capture 1-1](botnet_Capture11_Miraiscan_zscore.png)
-![Scatter Capture 3-1](botnet_Capture31_Miraivariant_scatter.png)
-![Z-score Capture 3-1](botnet_Capture31_Miraivariant_zscore.png)
-![Confusión Multi](botnet_confusion_multi.png)
-![Comunidades Multi](botnet_comunidades_multi.png)
+![Comparación Capturas](../results/figures/botnet_comparacion.png)
+![Scatter Capture 1-1](../results/figures/botnet_Capture11_Miraiscan_scatter.png)
+![Z-score Capture 1-1](../results/figures/botnet_Capture11_Miraiscan_zscore.png)
+![Scatter Capture 3-1](../results/figures/botnet_Capture31_Miraivariant_scatter.png)
+![Z-score Capture 3-1](../results/figures/botnet_Capture31_Miraivariant_zscore.png)
+![Confusión Multi](../results/figures/botnet_confusion_multi.png)
+![Comunidades Multi](../results/figures/botnet_comunidades_multi.png)
 
 ### Respuestas
 

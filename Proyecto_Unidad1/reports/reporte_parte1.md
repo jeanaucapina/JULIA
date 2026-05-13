@@ -125,7 +125,7 @@ Conectado: true
 
 ### 4.3 Visualización
 
-![Grafo de Red Corporativa](grafo_red.png)
+![Grafo de Red Corporativa](../results/figures/grafo_red.png)
 
 *Leyenda: ◆ rojo = Firewall, ⬡ naranja = Router, ■ azul = Server, ● verde = Host/IoT. Los números dentro de cada nodo corresponden al ID.*
 

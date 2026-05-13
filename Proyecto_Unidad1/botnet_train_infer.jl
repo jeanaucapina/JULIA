@@ -16,7 +16,7 @@ const RESULTS_DIR = joinpath(@__DIR__, "results")
 const FIGURES_DIR = joinpath(RESULTS_DIR, "figures")
 const TABLES_DIR = joinpath(RESULTS_DIR, "csv")
 const MODELS_DIR = joinpath(RESULTS_DIR, "models")
-const REPORTS_DIR = joinpath(RESULTS_DIR, "reports")
+const REPORTS_DIR = joinpath(@__DIR__, "reports")
 
 for dir in (FIGURES_DIR, TABLES_DIR, MODELS_DIR, REPORTS_DIR)
     mkpath(dir)

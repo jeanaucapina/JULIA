@@ -140,7 +140,7 @@ El algoritmo Label Propagation detecta **una sola comunidad** porque el grafo es
 
 ### 5.1 Scatter DC vs %Malicious
 
-![Scatter DC vs Malicious](botnet_scatter_dc_mal.png)
+![Scatter DC vs Malicious](../results/figures/botnet_scatter_dc_mal.png)
 
 *Eje X = Degree Centrality normalizado. Eje Y = % conexiones maliciosas. Rojo★ = GT Malicious, Azul● = GT Benign. Línea naranja = umbral 50% malicious.*
 
@@ -148,7 +148,7 @@ El algoritmo Label Propagation detecta **una sola comunidad** porque el grafo es
 
 ### 5.2 Z-score Botnet por IP (Top 30)
 
-![Z-score Botnet](botnet_zscore.png)
+![Z-score Botnet](../results/figures/botnet_zscore.png)
 
 *Barras rojas = GT Malicious, azul = GT Benign. Línea naranja punteada = umbral z = 1.5.*
 
@@ -156,7 +156,7 @@ El algoritmo Label Propagation detecta **una sola comunidad** porque el grafo es
 
 ### 5.3 Composición GT por Comunidad
 
-![Comunidades](botnet_comunidades.png)
+![Comunidades](../results/figures/botnet_comunidades.png)
 
 *Barra roja = % Malicious en cada comunidad detectada por Label Propagation.*
 
@@ -164,7 +164,7 @@ El algoritmo Label Propagation detecta **una sola comunidad** porque el grafo es
 
 ### 5.4 Matriz de Confusión
 
-![Matriz de Confusión](botnet_confusion.png)
+![Matriz de Confusión](../results/figures/botnet_confusion.png)
 
 *Heatmap: verde = aciertos, rojo = errores. Valores: TP=1, FP=0, TN=66, FN=0.*
 

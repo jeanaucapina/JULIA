@@ -156,7 +156,7 @@ julia --project=Proyecto_Unidad1 \
 
 ### Grafo base
 
-![Grafo base de la red corporativa](grafo_red.png){width=75%}
+![Grafo base de la red corporativa](../results/figures/grafo_red.png){width=75%}
 
 ## Parte 2: metricas de centralidad
 
@@ -181,13 +181,13 @@ No basta contar conexiones — importa cuantos caminos criticos dependen del nod
 
 ### Betweenness centrality
 
-![Grafo resaltando betweenness centrality](grafo_centralidad_bc.png){width=85%}
+![Grafo resaltando betweenness centrality](../results/figures/grafo_centralidad_bc.png){width=85%}
 
 ## Parte 2: comparacion de centralidades
 
 ### Barras por metrica
 
-![Comparacion de centralidades en barras](centralidad_barras.png){width=85%}
+![Comparacion de centralidades en barras](../results/figures/centralidad_barras.png){width=85%}
 
 ## Parte 3: deteccion de anomalias
 
@@ -212,13 +212,13 @@ Score compuesto reduce falsos positivos al combinar BC, DC y PR.
 
 ### Nodos anomalos destacados
 
-![Grafo con nodos anomalos destacados](grafo_anomalias.png){width=85%}
+![Grafo con nodos anomalos destacados](../results/figures/grafo_anomalias.png){width=85%}
 
 ## Parte 3: z-score por nodo
 
 ### Distribucion de z-scores
 
-![Barras de z-score por nodo](zscore_barras.png){width=85%}
+![Barras de z-score por nodo](../results/figures/zscore_barras.png){width=85%}
 
 ## Parte 4: propagacion SIR
 
@@ -235,7 +235,7 @@ La posicion topologica condiciona mas el impacto que $R_0$.
 
 ### Comparacion de curvas
 
-![Comparacion de curvas SIR](sir_comparacion.png){width=85%}
+![Comparacion de curvas SIR](../results/figures/sir_comparacion.png){width=85%}
 
 ## Parte 4: sensibilidad
 
@@ -249,7 +249,7 @@ La posicion topologica condiciona mas el impacto que $R_0$.
 
 ### Resultado del barrido
 
-![Barrido de beta en la simulacion SIR](sir_betas.png){width=85%}
+![Barrido de beta en la simulacion SIR](../results/figures/sir_betas.png){width=85%}
 
 ## Parte 4: cuarentena
 
@@ -262,7 +262,7 @@ La posicion topologica condiciona mas el impacto que $R_0$.
 
 ### Resultado
 
-![Impacto de una cuarentena temprana](sir_cuarentena.png){width=85%}
+![Impacto de una cuarentena temprana](../results/figures/sir_cuarentena.png){width=85%}
 
 ## Parte 5: resiliencia de la red
 
@@ -286,13 +286,13 @@ La posicion topologica condiciona mas el impacto que $R_0$.
 
 ### Grafo de resiliencia
 
-![Grafo con articulaciones y puentes](resiliencia_grafo.png){width=85%}
+![Grafo con articulaciones y puentes](../results/figures/resiliencia_grafo.png){width=85%}
 
 ## Parte 5: impacto por eliminacion
 
 ### Degradacion ante fallos dirigidos
 
-![Impacto por eliminacion de nodos criticos](resiliencia_impacto.png){width=85%}
+![Impacto por eliminacion de nodos criticos](../results/figures/resiliencia_impacto.png){width=85%}
 
 ## Hardening propuesto
 
@@ -339,19 +339,19 @@ $$score_{botnet}(v)=0.35\,pMal+0.25\,DC+0.20\,BC+0.20\,Ports_{norm}$$
 
 ### Severidad por captura
 
-![Comparacion entre capturas IoT-23](botnet_comparacion.png){width=85%}
+![Comparacion entre capturas IoT-23](../results/figures/botnet_comparacion.png){width=85%}
 
 ## Desafio extra: z-score Mirai
 
 ### Deteccion por IP
 
-![Z-score de deteccion para Mirai](botnet_Capture11_Miraiscan_zscore.png){width=85%}
+![Z-score de deteccion para Mirai](../results/figures/botnet_Capture11_Miraiscan_zscore.png){width=85%}
 
 ## Desafio extra: matriz de confusion
 
 ### Validacion multicaptura
 
-![Matriz de confusion multicaptura](botnet_confusion_multi.png){width=85%}
+![Matriz de confusion multicaptura](../results/figures/botnet_confusion_multi.png){width=85%}
 
 ## Integracion de resultados
 

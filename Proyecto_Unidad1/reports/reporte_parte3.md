@@ -101,7 +101,7 @@ Los tres routers de agregación superan el umbral. El resto de la red (17 nodos)
 
 ### 5.1 Grafo con Anomalías Resaltadas
 
-![Grafo de Anomalías](grafo_anomalias.png)
+![Grafo de Anomalías](../results/figures/grafo_anomalias.png)
 
 *Estrella roja = nodo anómalo (z > 1.5). Círculo azul = normal. Aristas rojas conectan pares de anómalos. Z-score anotado encima de cada nodo.*
 
@@ -113,7 +113,7 @@ Los tres routers de agregación superan el umbral. El resto de la red (17 nodos)
 
 ### 5.2 Scatter BC vs DC coloreado por Z-Score
 
-![Scatter Anomalías](anomalias_scatter.png)
+![Scatter Anomalías](../results/figures/anomalias_scatter.png)
 
 *Eje X = Degree Centrality, eje Y = Betweenness Centrality. Color: azul=z bajo, amarillo=z moderado, rojo=z alto (anómalo).*
 
@@ -125,7 +125,7 @@ Los tres routers de agregación superan el umbral. El resto de la red (17 nodos)
 
 ### 5.3 Barras de Z-Score por Nodo
 
-![Z-Score Barras](zscore_barras.png)
+![Z-Score Barras](../results/figures/zscore_barras.png)
 
 *Barras rojas = anómalos (z > 1.5), azul = positivo normal, gris = negativo. Línea roja punteada = umbral z = 1.5.*
 
