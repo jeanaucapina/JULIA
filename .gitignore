@@ -20,3 +20,9 @@
 
 # Local agent/context files
 CLAUDE_*
+
+# Large local datasets and archives
+Proyecto_Unidad1/iot_23_datasets_small/
+Proyecto_Unidad1/iot_23_datasets_small.tar.gz
+Proyecto_Unidad1/archives/iot_23_datasets_small.tar.gz
+Proyecto_Unidad1/archives/CTU-13-Dataset.tar.bz2

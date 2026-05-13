@@ -1,0 +1,2 @@
+ip,gt_label,score,zscore,degree_centrality,pct_malicious,unique_ports,selected_by
+192.168.1.132,benign,0.500000,3.872983,1.000000,0.000000,6,ZSCORE
