@@ -1,0 +1,6 @@
+vlan_id,vlan_name,train_hosts,test_hosts,stable_hosts,stability
+1,VLAN_10,8,9,5,0.625
+2,VLAN_20,4,3,0,0.0
+3,VLAN_30,5,4,2,0.4
+4,VLAN_40,12,12,12,1.0
+5,VLAN_50,7,8,5,0.714

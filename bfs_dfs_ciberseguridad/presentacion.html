@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BFS y DFS — Red de Sensores Hídricos</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/reset.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/reveal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/theme/night.css">
+<style>
+  :root {
+    --accent:  #38bdf8;
+    --accent2: #fb923c;
+    --accent3: #4ade80;
+    --danger:  #f87171;
+    --bg-card: rgba(255,255,255,0.06);
+    --border:  rgba(255,255,255,0.12);
+  }
+
+  /* ── base ── */
+  .reveal { font-family: 'Segoe UI', system-ui, sans-serif; }
+  .reveal h1 { font-size: 1.9em; color: var(--accent); text-shadow: 0 0 28px rgba(56,189,248,.35); margin-bottom:.4em; }
+  .reveal h2 { font-size: 1.25em; color: var(--accent); border-bottom: 2px solid var(--accent); padding-bottom:.25em; margin-bottom:.5em; margin-top:0; }
+  .reveal h3 { font-size: .95em; color: var(--accent2); margin: .3em 0 .3em; }
+  .reveal p, .reveal li { font-size: .76em; line-height: 1.55; margin:.2em 0; }
+  .reveal section {
+    padding: 4px 36px 0;
+    box-sizing: border-box;
+    overflow-y: auto !important;
+    max-height: 100vh;
+  }
+  .reveal .slides section { top: 0 !important; }
+
+  /* ── cards ── */
+  .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 12px 16px; margin: 5px 0; }
+  .card-row { display: flex; gap: 10px; }
+  .card-row .card { flex: 1; }
+
+  /* ── badges ── */
+  .badge { display: inline-block; padding: 2px 10px; border-radius: 20px; font-size: .68em; font-weight: 700; letter-spacing: .04em; }
+  .badge-blue  { background: rgba(56,189,248,.2);  color: var(--accent);  border: 1px solid var(--accent); }
+  .badge-orange{ background: rgba(251,146,60,.2);  color: var(--accent2); border: 1px solid var(--accent2); }
+  .badge-green { background: rgba(74,222,128,.2);  color: var(--accent3); border: 1px solid var(--accent3); }
+  .badge-red   { background: rgba(248,113,113,.2); color: var(--danger);  border: 1px solid var(--danger); }
+
+  /* ── tables ── */
+  .reveal table { font-size: .68em; width: 100%; border-collapse: collapse; margin: 6px 0; }
+  .reveal table th { background: rgba(56,189,248,.15); color: var(--accent); padding: 6px 10px; border-bottom: 2px solid var(--accent); text-align: left; }
+  .reveal table td { padding: 5px 10px; border-bottom: 1px solid var(--border); }
+  .reveal table tr:last-child td { border-bottom: none; }
+  .reveal table td strong { color: var(--accent3); }
+
+  /* ── code ── */
+  .reveal pre { font-size: .65em; border-radius: 7px; border: 1px solid var(--border); margin: 5px 0; }
+  .reveal code { font-family: 'Cascadia Code', 'Fira Code', monospace; }
+
+  /* ── figures ── */
+  .fig-wrap { text-align: center; margin: 6px 0; }
+  .fig-wrap img { max-height: 290px; max-width: 100%; border-radius: 7px; border: 1px solid var(--border); box-shadow: 0 3px 18px rgba(0,0,0,.5); }
+  .fig-wrap img.h260 { max-height: 260px; }
+  .fig-wrap img.h220 { max-height: 220px; }
+  .fig-wrap img.h180 { max-height: 180px; }
+  .fig-wrap img.h340 { max-height: 340px; }
+  .fig-caption { font-size: .58em; color: #94a3b8; margin-top: 4px; font-style: italic; line-height:1.4; }
+
+  /* ── two-col ── */
+  .cols { display: flex; gap: 16px; align-items: flex-start; }
+  .cols .col { flex: 1; min-width: 0; }
+
+  /* ── stat numbers ── */
+  .stat-num   { font-size: 2.1em; font-weight: 800; color: var(--accent); line-height: 1; }
+  .stat-label { font-size: .65em; color: #94a3b8; margin-top: 3px; }
+  .stat-grid  { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin: 8px 0; }
+  .stat-box   { background: var(--bg-card); border: 1px solid var(--border); border-radius: 9px; padding: 10px 16px; text-align: center; min-width: 95px; }
+
+  /* ── queue/stack ── */
+  .queue-vis {
+    font-family: monospace;
+    background: rgba(0,0,0,.35);
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    padding: 10px 14px;
+    font-size: .67em;
+    color: #e2e8f0;
+    margin: 6px 0;
+    line-height: 1.75;
+  }
+
+  /* ── highlights ── */
+  .hl-blue   { color: var(--accent);  font-weight: 700; }
+  .hl-orange { color: var(--accent2); font-weight: 700; }
+  .hl-green  { color: var(--accent3); font-weight: 700; }
+  .hl-red    { color: var(--danger);  font-weight: 700; }
+
+  /* ── slide tag ── */
+  .slide-tag { position: absolute; top: 10px; right: 20px; font-size: .55em; color: #475569; font-family: monospace; letter-spacing: .08em; }
+
+  /* ── timeline ── */
+  .timeline { display: flex; flex-direction: column; gap: 6px; }
+  .tl-item  { display: flex; gap: 10px; align-items: flex-start; }
+  .tl-num   { background: var(--accent); color: #0f172a; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: .72em; flex-shrink: 0; margin-top: 1px; }
+  .tl-text  { font-size: .75em; line-height: 1.5; }
+
+  /* ── progress ── */
+  .reveal .progress { height: 3px; }
+  .reveal .progress span { background: var(--accent); }
+
+  /* ── title slide ── */
+  .title-tag-row { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-top: 14px; }
+
+  /* ── comparison bars ── */
+  .cmp-bar { display: flex; align-items: center; gap: 8px; margin: 4px 0; font-size: .74em; }
+  .cmp-bar .label    { width: 100px; text-align: right; color: #94a3b8; flex-shrink:0; }
+  .cmp-bar .bar-track{ flex: 1; background: rgba(255,255,255,.08); border-radius: 4px; height: 16px; overflow: hidden; }
+  .cmp-bar .bar-fill { height: 100%; border-radius: 4px; display: flex; align-items: center; padding-left: 7px; font-size: .74em; font-weight: 700; }
+  .bar-bfs   { background: linear-gradient(90deg,#1d4ed8,#38bdf8); color:#fff; }
+  .bar-dfs   { background: linear-gradient(90deg,#9a3412,#fb923c); color:#fff; }
+
+  /* ── alert box ── */
+  .alert { background: rgba(248,113,113,.1); border: 1px solid var(--danger); border-radius: 8px; padding: 8px 14px; margin: 6px 0; font-size: .74em; }
+  .info  { background: rgba(56,189,248,.1);  border: 1px solid var(--accent);  border-radius: 8px; padding: 8px 14px; margin: 6px 0; font-size: .74em; }
+</style>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<!-- ═══════════════════════════════════
+     S1 — PORTADA
+═══════════════════════════════════ -->
+<section data-background-gradient="radial-gradient(ellipse at 20% 50%,rgba(56,189,248,.08) 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,rgba(251,146,60,.06) 0%,transparent 50%)">
+  <div style="margin-top:60px">
+    <h1>BFS &amp; DFS</h1>
+    <h1 style="font-size:1.2em;color:#e2e8f0;margin-top:-.2em">Red de Sensores Hídricos</h1>
+    <p style="color:#64748b;font-size:.82em;margin-top:.5em">Algoritmos de grafos aplicados a WSN con restricción de batería</p>
+    <div class="title-tag-row">
+      <span class="badge badge-blue">Julia 1.x</span>
+      <span class="badge badge-orange">Graphs.jl</span>
+      <span class="badge badge-green">50 nodos · 96 aristas</span>
+      <span class="badge badge-red">IoT / ESP-NOW</span>
+    </div>
+    <p style="font-size:.7em;color:#64748b;margin-top:24px">Jean Carlo Aucapina &nbsp;·&nbsp; Universidad de Cuenca &nbsp;·&nbsp; 2026</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+     S2 — PROBLEMA
+═══════════════════════════════════ -->
+<section>
+  <span class="slide-tag">01 / PROBLEMA</span>
+  <h2>El problema: baterías limitadas en WSN</h2>
+  <div class="cols">
+    <div class="col">
+      <p>Red de sensores IoT monitorea <strong>caudal de agua</strong> en ríos y canales. Cada transmisión consume mAh de batería limitada.</p>
+      <div style="margin-top:8px">
+        <div class="card"><p style="margin:0">❶ &nbsp;¿Cuál es el camino con <span class="hl-blue">menor número de saltos</span> al gateway?</p></div>
+        <div class="card"><p style="margin:0">❷ &nbsp;¿Qué ruta alternativa <span class="hl-orange">consume menos batería</span>?</p></div>
+        <div class="card"><p style="margin:0">❸ &nbsp;¿Qué estrategia <span class="hl-green">preserva la red más tiempo</span>?</p></div>
+      </div>
+      <div class="alert" style="margin-top:10px">Agotar nodos clave puede dejar <strong>sectores enteros sin cobertura</strong></div>
+    </div>
+    <div class="col">
+      <div class="stat-grid">
+        <div class="stat-box"><div class="stat-num">35</div><div class="stat-label">Sensores</div></div>
+        <div class="stat-box"><div class="stat-num">12</div><div class="stat-label">Repetidores</div></div>
+        <div class="stat-box"><div class="stat-num">3</div><div class="stat-label">Gateways</div></div>
+        <div class="stat-box"><div class="stat-num">96</div><div class="stat-label">Aristas</div></div>
+      </div>
+      <div class="fig-wrap" style="margin-top:10px">
+        <img src="imgs/fig1_red_completa.png" class="h260" alt="Red completa">
+        <div class="fig-caption">Fig. 1 — Azul=sensor · Naranja=repetidor · Verde=gateway</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+     S3 — RED SINTÉTICA
+═══════════════════════════════════ -->
+<section>
+  <span class="slide-tag">02 / RED</span>
+  <h2>Estructura de la red sintética</h2>
+  <div class="cols" style="align-items:center">
+    <div class="col" style="flex:1.1">
+      <div class="fig-wrap">
+        <img src="imgs/fig1_red_completa.png" class="h340" alt="Topología completa">
+        <div class="fig-caption">Fig. 1 — Topología árbol con redundancias (mesh parcial)</div>
+      </div>
+    </div>
+    <div class="col" style="flex:.8">
+      <h3>Topología</h3>
+      <p>Árbol con redundancias. Aristas sensor–sensor y repetidor–repetidor crean rutas alternativas realistas.</p>
+      <h3 style="margin-top:10px">Peso de aristas</h3>
+      <div class="card">
+        <code style="color:var(--accent);font-size:.82em">peso(u→v) = base_tx × (100/bat_v) × ruido</code>
+        <p style="margin-top:6px;margin-bottom:0;font-size:.7em;color:#94a3b8">Nodos con poca batería tienen mayor costo de relay.</p>
+      </div>
+      <table style="margin-top:8px">
+        <tr><th>Parámetro</th><th>Valor</th></tr>
+        <tr><td>Nodos totales</td><td><strong>50</strong></td></tr>
+        <tr><td>Aristas</td><td><strong>96</strong></td></tr>
+        <tr><td>Rango peso</td><td>0.5 – 3 mAh</td></tr>
+        <tr><td>Gateways</td><td>3 (red eléctrica)</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+     S4 — BFS: CÓMO FUNCIONA
+═══════════════════════════════════ -->
+<section>
+  <span class="slide-tag">03 / BFS</span>
+  <h2>BFS — Búsqueda en Anchura</h2>
+  <div class="cols">
+    <div class="col">
+      <div class="fig-wrap">
+        <img src="imgs/fig2_bfs_didactico.png" class="h290" alt="BFS didáctico">
+        <div class="fig-caption">Fig. 2 — Amarillo=origen (Nivel 0) · Celeste=Nivel 1 · Azul=Nivel 2+</div>
+      </div>
+    </div>
+    <div class="col">
+      <p>Explora <strong>nivel a nivel</strong>. El primer camino encontrado es de <span class="hl-blue">mínimo número de saltos</span>.</p>
+      <h3 style="margin-top:8px">Cola FIFO</h3>
+      <div class="queue-vis"><span class="hl-blue">[ORIGEN]</span>
+→ visita ORIGEN → encola Nivel 1: <span class="hl-orange">[A, B]</span>
+→ visita A      → encola Nivel 2: <span class="hl-orange">[B, C, D]</span>
+→ visita B      → encola Nivel 2: <span class="hl-orange">[C, D, E]</span>
+→ ... hasta llegar al <span class="hl-green">gateway</span></div>
+      <div class="card" style="margin-top:6px">
+        <p style="margin:0"><strong>Complejidad:</strong> O(V + E) &nbsp;·&nbsp; <strong>Garantía:</strong> mínimos saltos</p>
+      </div>
+      <div class="info" style="margin-top:6px">
+        Ideal para routing normal — ruta directa, bajo consumo energético.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+     S5 — BFS RESULTADOS
+═══════════════════════════════════ -->
+<section>
+  <span class="slide-tag">03 / BFS</span>
+  <h2>BFS aplicado — resultados</h2>
+  <div class="cols" style="align-items:center">
+    <div class="col">
+      <div class="fig-wrap">
+        <img src="imgs/fig3_bfs_ruta_real.png" class="h290" alt="BFS ruta real">
+        <div class="fig-caption">Fig. 3 — Aristas rojas = ruta BFS de S-04 a GW-1 (2 saltos)</div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="stat-grid">
+        <div class="stat-box"><div class="stat-num">2.00</div><div class="stat-label">saltos promedio</div></div>
+        <div class="stat-box"><div class="stat-num">35/35</div><div class="stat-label">sensores con ruta</div></div>
+      </div>
+      <p style="margin-top:8px">Todos los sensores alcanzan un gateway en <strong>exactamente 2 saltos</strong>.</p>
+      <div class="card">
+        <p style="font-family:monospace;font-size:.7em;margin:0;line-height:1.8">
+          S-04 <span class="hl-orange">→</span> R-01 <span class="hl-orange">→</span> <span class="hl-green">GW-1</span><br>
+          Saltos: <span class="hl-blue">2</span> &nbsp;·&nbsp; Costo: <span class="hl-blue">5.575 mAh</span>
+        </p>
+      </div>
+      <table style="margin-top:10px">
+        <tr><th>Sensor</th><th>Saltos</th><th>Bat.Med%</th><th>Gateway</th></tr>
+        <tr><td>S-01</td><td>2</td><td>75.0</td><td>GW-1</td></tr>
+        <tr><td>S-02</td><td>2</td><td>75.0</td><td>GW-3</td></tr>
+        <tr><td>S-03</td><td>2</td><td>71.7</td><td>GW-1</td></tr>
+        <tr><td colspan="4" style="color:#64748b;font-style:italic">… todos 35 sensores en 2 saltos</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+     S6 — DFS: CÓMO FUNCIONA
+═══════════════════════════════════ -->
+<section>
+  <span class="slide-tag">04 / DFS</span>
+  <h2>DFS — Búsqueda en Profundidad</h2>
+  <div class="cols">
+    <div class="col">
+      <div class="fig-wrap">
+        <img src="imgs/fig4_dfs_didactico.png" class="h290" alt="DFS didáctico">
+        <div class="fig-caption">Fig. 4 — v=N indica orden de visita. DFS baja por cada rama al máximo antes de retroceder.</div>
+      </div>
+    </div>
+    <div class="col">
+      <p>Explora cada rama hasta el <strong>máximo fondo</strong> antes de retroceder. Mapea <span class="hl-orange">todo el espacio de rutas posibles</span>.</p>
+      <h3 style="margin-top:8px">Pila LIFO</h3>
+      <div class="queue-vis"><span class="hl-orange">[ORIGEN]</span>
+→ visita ORIGEN → empuja: <span class="hl-orange">[N2, N3]</span>
+→ visita N2     → empuja: <span class="hl-orange">[N3, N4, N5]</span>  ← baja
+→ visita N4     → empuja: <span class="hl-orange">[N3, N5, N8]</span>  ← sigue
+→ visita N8     → sin vecinos → <span class="hl-red">backtrack</span></div>
+      <div class="card" style="margin-top:6px">
+        <p style="margin:0"><strong>Complejidad:</strong> O(V + E) &nbsp;·&nbsp; <strong>Ventaja:</strong> encuentra TODAS las rutas</p>
+      </div>
+      <div class="info" style="margin-top:6px">
+        Útil como herramienta de auditoría — mapea rutas de respaldo cuando nodos se degradan.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+     S7 — DFS RESULTADOS
+═══════════════════════════════════ -->
+<section>
+  <span class="slide-tag">04 / DFS</span>
+  <h2>DFS aplicado — 200 rutas exploradas</h2>
+  <div class="cols">
+    <div class="col">
+      <div class="fig-wrap">
+        <img src="imgs/fig5_dfs_histograma.png" class="h260" alt="Histograma DFS">
+        <div class="fig-caption">Fig. 5 — Distribución de costos. Rojo=ruta BFS. Verde=mejor ruta DFS.</div>
+      </div>
+      <div class="fig-wrap">
+        <img src="imgs/fig6_scatter_saltos_mah.png" class="h220" alt="Scatter">
+        <div class="fig-caption">Fig. 6 — Saltos vs mAh. Estrella roja = ruta BFS.</div>
+      </div>
+    </div>
+    <div class="col">
+      <table>
+        <tr><th>Métrica</th><th>Valor</th></tr>
+        <tr><td>Rutas encontradas</td><td><strong>200</strong> (límite)</td></tr>
+        <tr><td>Costo mínimo</td><td><strong>55.102 mAh</strong></td></tr>
+        <tr><td>Costo máximo</td><td>107.664 mAh</td></tr>
+        <tr><td>Costo promedio</td><td>80.444 mAh</td></tr>
+        <tr><td>Saltos mínimos</td><td>17</td></tr>
+        <tr><td>Saltos máximos</td><td>31</td></tr>
+      </table>
+      <h3 style="margin-top:10px">Mejor ruta DFS</h3>
+      <div class="card">
+        <p style="font-size:.65em;font-family:monospace;margin:0;line-height:1.7;color:#94a3b8">
+          S-04 → S-09 → S-02 → R-02 → S-16 → S-24 →<br>
+          R-04 → S-10 → S-18 → R-07 → S-01 → R-10 →<br>
+          S-05 → S-13 → R-09 → S-17 → R-05 → <span class="hl-green">GW-2</span>
+        </p>
+        <p style="font-size:.7em;margin-top:6px;margin-bottom:0"><span class="hl-orange">17 saltos</span> &nbsp;·&nbsp; <span class="hl-green">55.102 mAh</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+     S8 — BFS vs DFS COMPARACIÓN
+═══════════════════════════════════ -->
+<section>
+  <span class="slide-tag">05 / COMPARACIÓN</span>
+  <h2>BFS vs DFS — análisis comparativo</h2>
+  <div class="cols">
+    <div class="col">
+      <div class="fig-wrap">
+        <img src="imgs/fig8_comparacion_bfs_dfs.png" class="h280" alt="Comparación BFS vs DFS">
+        <div class="fig-caption">Fig. 7 — Izq: consumo mAh. Der: saltos. Rojo=BFS, azul/naranja=mejores rutas DFS.</div>
+      </div>
+    </div>
+    <div class="col">
+      <table>
+        <tr><th>Criterio</th><th>BFS</th><th>DFS mejor</th></tr>
+        <tr><td>Saltos</td><td><strong>2</strong></td><td>17</td></tr>
+        <tr><td>Costo (mAh)</td><td><strong>5.575</strong></td><td>55.102</td></tr>
+        <tr><td>Rutas evaluadas</td><td>1</td><td><strong>200</strong></td></tr>
+      </table>
+      <div class="info" style="margin-top:8px"><span class="hl-green">BFS fue 89.9% más eficiente en batería en este caso.</span></div>
+      <h3 style="margin-top:10px">¿Por qué?</h3>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-num" style="background:var(--accent)">1</div>
+          <div class="tl-text">BFS optimiza saltos. La ruta directa es barata porque R-01 tiene buena batería.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-num" style="background:var(--accent2)">2</div>
+          <div class="tl-text">DFS acumula costo en rutas largas aunque cada arista sea barata.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-num" style="background:var(--accent3)">3</div>
+          <div class="tl-text">Trade-off: cuando el repetidor más cercano tiene batería crítica, DFS encuentra ruta alternativa.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+     S9 — ESTADO DE LA RED
+═══════════════════════════════════ -->
+<section>
+  <span class="slide-tag">06 / ESTADO RED</span>
+  <h2>Estado crítico de la red</h2>
+  <div class="cols" style="align-items:center">
+    <div class="col">
+      <div class="fig-wrap">
+        <img src="imgs/fig7_bateria_sensores.png" class="h300" alt="Batería sensores">
+        <div class="fig-caption">Fig. 8 — Rojo(&lt;30%)=crítico · Naranja(30–50%)=bajo · Amarillo=aceptable · Verde=bueno</div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="stat-grid">
+        <div class="stat-box"><div class="stat-num" style="color:var(--danger)">3</div><div class="stat-label">críticos &lt;30%</div></div>
+        <div class="stat-box"><div class="stat-num" style="color:var(--accent2)">14</div><div class="stat-label">bajos 30–50%</div></div>
+        <div class="stat-box"><div class="stat-num">47.4%</div><div class="stat-label">media red</div></div>
+      </div>
+      <h3 style="margin-top:10px">Sensores prioritarios</h3>
+      <table>
+        <tr><th>Sensor</th><th>Batería</th><th>Saltos GW</th></tr>
+        <tr><td>S-35</td><td><span class="hl-red">20.0%</span></td><td>2</td></tr>
+        <tr><td>S-16</td><td><span class="hl-red">25.0%</span></td><td>2</td></tr>
+        <tr><td>S-21</td><td><span class="hl-red">25.0%</span></td><td>2</td></tr>
+      </table>
+      <div class="alert" style="margin-top:8px">Su bajo nivel los convierte en cuello de botella si otros sensores los usan como relay.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+     S10 — ESP-NOW: CONCEPTOS
+═══════════════════════════════════ -->
+<section>
+  <span class="slide-tag">07 / ESP-NOW</span>
+  <h2>Broadcast Flood vs Enrutamiento Dirigido</h2>
+  <div class="cols">
+    <div class="col">
+      <div class="card">
+        <h3 style="margin-top:0">🌊 Broadcast Flood</h3>
+        <p>Cada nodo reenvía a <strong>todos</strong> sus vecinos. Como una ola — se expande en todas direcciones.</p>
+        <p style="color:#94a3b8">No requiere tabla de rutas. Riesgo: <strong>tormenta de broadcasts</strong>.</p>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0">🎯 Enrutamiento BFS/DFS</h3>
+        <p>El paquete sigue <strong>una sola ruta</strong> calculada al gateway. Flujo controlado.</p>
+        <p style="color:#94a3b8">Requiere tabla de rutas. Alta eficiencia energética.</p>
+      </div>
+      <div class="fig-wrap" style="margin-top:8px">
+        <img src="imgs/fig14_flood_propagacion.png" class="h200" alt="Propagación flood">
+        <div class="fig-caption">Fig. 14 — Propagación flood desde S-04. Dorado=nivel 1, naranja=nivel 2, rojo=nivel 3+</div>
+      </div>
+    </div>
+    <div class="col">
+      <table>
+        <tr><th>Métrica</th><th>BFS</th><th>Flood</th></tr>
+        <tr><td>Saltos al GW</td><td><strong>2.00</strong></td><td>2.00</td></tr>
+        <tr><td>Transmisiones</td><td><strong>2</strong></td><td>192</td></tr>
+        <tr><td>Nodos activos</td><td><strong>3</strong></td><td>49/50</td></tr>
+        <tr><td>Consumo (mAh)</td><td><strong>5.024</strong></td><td>574.314</td></tr>
+        <tr><td>Overhead tx</td><td>—</td><td><span class="hl-red">+9 500%</span></td></tr>
+        <tr><td>Overhead mAh</td><td>—</td><td><span class="hl-red">+11 331%</span></td></tr>
+      </table>
+      <div class="alert" style="margin-top:8px"><span class="hl-red">1 sesión flood = ~113 sesiones BFS</span> en gasto energético.</div>
+      <div class="fig-wrap" style="margin-top:8px">
+        <img src="imgs/fig12_flood_vs_bfs_barras.png" class="h200" alt="Flood vs BFS barras">
+        <div class="fig-caption">Fig. 12 — Azul=BFS, rojo=Flood. Transmisiones y consumo mAh por sensor.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+     S11 — CUÁNDO USAR CADA MODO
+═══════════════════════════════════ -->
+<section>
+  <span class="slide-tag">07 / ESP-NOW</span>
+  <h2>¿Cuándo usar cada estrategia?</h2>
+  <table>
+    <tr><th>Situación</th><th>Modo</th><th>Razón</th></tr>
+    <tr><td>Transmisión periódica de caudal</td><td><span class="badge badge-blue">BFS dirigido</span></td><td>Bajo consumo, ruta estable</td></tr>
+    <tr><td>Descubrimiento inicial (setup)</td><td><span class="badge badge-red">Flood</span></td><td>Sin tabla de rutas aún</td></tr>
+    <tr><td>Alerta de emergencia (crecida)</td><td><span class="badge badge-red">Flood</span></td><td>Entrega garantizada</td></tr>
+    <tr><td>Auditoría de resiliencia</td><td><span class="badge badge-orange">DFS</span></td><td>Mapea todo el espacio de rutas</td></tr>
+    <tr><td>Red con baterías críticas &lt;30%</td><td><span class="badge badge-blue">BFS dirigido</span></td><td>Flood las agotaría en pocas sesiones</td></tr>
+  </table>
+  <div class="info" style="margin:8px 0;text-align:center">
+    <span class="hl-blue">BFS</span> operación normal &nbsp;+&nbsp;
+    <span class="hl-orange">DFS</span> auditoría cada 24h &nbsp;+&nbsp;
+    <span class="hl-red">Flood</span> solo en emergencias
+  </div>
+  <table>
+    <tr><th>Criterio</th><th>BFS</th><th>DFS</th><th>Flood</th></tr>
+    <tr><td>Saltos GW</td><td><strong>2</strong></td><td>17</td><td>2</td></tr>
+    <tr><td>mAh</td><td><strong>5.0</strong></td><td>55.1</td><td>574.3</td></tr>
+    <tr><td>Transmisiones</td><td><strong>2</strong></td><td>17</td><td>192</td></tr>
+    <tr><td>Sin tabla rutas</td><td>No</td><td>No</td><td><strong>Sí</strong></td></tr>
+    <tr><td>Escalabilidad</td><td><strong>Alta</strong></td><td>Media</td><td>Baja</td></tr>
+  </table>
+</section>
+
+<!-- ═══════════════════════════════════
+     S12 — SIMULACIÓN: MODELO
+═══════════════════════════════════ -->
+<section>
+  <span class="slide-tag">08 / SIMULACIÓN</span>
+  <h2>Simulación temporal de agotamiento</h2>
+  <p>¿Qué estrategia <strong>preserva la red más tiempo</strong> bajo 120 rondas de transmisión continua?</p>
+  <div class="card-row">
+    <div class="card">
+      <h3 style="margin-top:0;color:var(--accent)">Modelo por ronda</h3>
+      <div class="timeline">
+        <div class="tl-item"><div class="tl-num">1</div><div class="tl-text">Cada sensor activo (bat &gt; 0%) ejecuta su algoritmo de routing</div></div>
+        <div class="tl-item"><div class="tl-num">2</div><div class="tl-text">Se descuenta mAh de <strong>todos los nodos en la ruta</strong> — incluyendo relays</div></div>
+        <div class="tl-item"><div class="tl-num">3</div><div class="tl-text">Pesos de aristas se recalculan según batería actual</div></div>
+        <div class="tl-item"><div class="tl-num">4</div><div class="tl-text">Nodo con batería = 0 → <span class="hl-red">fuera de servicio permanente</span></div></div>
+      </div>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0;color:var(--accent2)">Hipótesis por modo</h3>
+      <p><span class="hl-blue">BFS</span> — rutas de 2 saltos. Solo 2 nodos gastan batería por transmisión.</p>
+      <p><span class="hl-orange">DFS</span> — elige ruta de menor costo mAh. Puede ser de 10–20 saltos. Más nodos participan → mayor desgaste total.</p>
+      <div style="background:rgba(0,0,0,.3);border-radius:7px;padding:8px 12px;font-size:.72em;color:#94a3b8;border:1px solid var(--border);margin-top:8px">
+        Un repetidor con múltiples sensores se desgasta más rápido — el costo se distribuye entre todos los nodos de la ruta.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+     S13 — RESULTADOS SIMULACIÓN
+═══════════════════════════════════ -->
+<section>
+  <span class="slide-tag">08 / SIMULACIÓN</span>
+  <h2>Resultados — 120 rondas</h2>
+  <div class="stat-grid">
+    <div class="stat-box"><div class="stat-num" style="color:var(--accent)">23</div><div class="stat-label">sensores vivos BFS</div></div>
+    <div class="stat-box"><div class="stat-num" style="color:var(--accent2)">20</div><div class="stat-label">sensores vivos DFS</div></div>
+    <div class="stat-box"><div class="stat-num" style="font-size:1.6em;color:var(--accent)">Ronda 4</div><div class="stat-label">1er muerto BFS</div></div>
+    <div class="stat-box"><div class="stat-num" style="font-size:1.6em;color:var(--danger)">Ronda 1</div><div class="stat-label">1er muerto DFS</div></div>
+  </div>
+  <h3 style="margin-top:8px">Consumo total de red</h3>
+  <div class="cmp-bar"><span class="label">BFS</span><div class="bar-track"><div class="bar-fill bar-bfs" style="width:80%">2 269.8 mAh</div></div></div>
+  <div class="cmp-bar"><span class="label">DFS</span><div class="bar-track"><div class="bar-fill bar-dfs" style="width:100%">2 846.4 mAh</div></div></div>
+  <table style="margin-top:8px">
+    <tr><th>Métrica</th><th>BFS</th><th>DFS</th></tr>
+    <tr><td>Sensores vivos al final</td><td><strong>23 / 35</strong></td><td>20 / 35</td></tr>
+    <tr><td>Batería media final (vivos)</td><td><strong>33.6%</strong></td><td>28.5%</td></tr>
+    <tr><td>Nodos agotados (sensores+reps)</td><td>23</td><td><strong>25</strong></td></tr>
+    <tr><td>Ronda 1er nodo muerto</td><td><strong>4</strong></td><td><span class="hl-red">1</span></td></tr>
+  </table>
+  <div class="alert" style="margin-top:8px">DFS mata su primer nodo en ronda 1 — rutas largas aceleran el agotamiento desde el inicio.</div>
+</section>
+
+<!-- ═══════════════════════════════════
+     S14 — GIF ANIMACIÓN
+═══════════════════════════════════ -->
+<section>
+  <span class="slide-tag">08 / SIMULACIÓN</span>
+  <h2>Animación: agotamiento ronda a ronda</h2>
+  <div class="fig-wrap">
+    <img src="imgs/fig18_agotamiento_gif.gif" style="max-height:400px;max-width:96%" alt="GIF agotamiento">
+    <div class="fig-caption">Fig. 18 — Cada punto = un sensor. Color: <span class="hl-green">verde(&gt;70%)</span> → <span style="color:gold">amarillo(50–70%)</span> → <span class="hl-orange">naranja(30–50%)</span> → <span class="hl-red">rojo(&lt;30%)</span> → negro(muerto). Panel izq=BFS, der=DFS.</div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+     S15 — SENSORES ACTIVOS + FIG16
+═══════════════════════════════════ -->
+<section>
+  <span class="slide-tag">08 / SIMULACIÓN</span>
+  <h2>Evolución temporal de la red</h2>
+  <div class="cols">
+    <div class="col">
+      <div class="fig-wrap">
+        <img src="imgs/fig15_sensores_activos.png" class="h270" alt="Sensores activos">
+        <div class="fig-caption">Fig. 15 — BFS mantiene más sensores activos durante toda la simulación.</div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="fig-wrap">
+        <img src="imgs/fig16_bateria_temporal.png" class="h270" alt="Batería temporal">
+        <div class="fig-caption">Fig. 16 — Batería media de vivos (izq) y del peor nodo (der). BFS mantiene más margen.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+     S16 — FIG17 + FIG19
+═══════════════════════════════════ -->
+<section>
+  <span class="slide-tag">08 / SIMULACIÓN</span>
+  <h2>Nodos agotados y consumo acumulado</h2>
+  <div class="cols">
+    <div class="col">
+      <div class="fig-wrap">
+        <img src="imgs/fig17_nodos_muertos.png" class="h270" alt="Nodos muertos">
+        <div class="fig-caption">Fig. 17 — Nodos agotados acumulados. DFS acumula más nodos muertos más rápido.</div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="fig-wrap">
+        <img src="imgs/fig19_consumo_acumulado.png" class="h270" alt="Consumo acumulado">
+        <div class="fig-caption">Fig. 19 — mAh acumulados. Líneas punteadas = ronda del 1er nodo muerto.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+     S17 — INTERPRETACIÓN SIMULACIÓN
+═══════════════════════════════════ -->
+<section>
+  <span class="slide-tag">08 / SIMULACIÓN</span>
+  <h2>Interpretación de la simulación</h2>
+  <div class="cols">
+    <div class="col">
+      <h3>¿Por qué BFS preserva mejor la red?</h3>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-num" style="background:var(--accent)">✓</div>
+          <div class="tl-text">Rutas de 2 saltos → solo 2 nodos gastan batería por transmisión.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-num" style="background:var(--accent2)">✗</div>
+          <div class="tl-text">DFS elige rutas de 10–20 saltos. Más nodos desgastados por paquete aunque cada arista sea barata.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-num" style="background:var(--accent3)">↺</div>
+          <div class="tl-text">Cuando un repetidor central muere, BFS recalcula hacia otro gateway automáticamente.</div>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <h3>¿Cuándo DFS gana?</h3>
+      <div class="card">
+        <p style="margin:0">Si repetidores centrales ya tienen batería crítica al inicio, BFS los sobrecargaría (siempre los elige por mínimos saltos). DFS distribuiría el tráfico hacia nodos alternativos.</p>
+      </div>
+      <h3 style="margin-top:10px">Diseño óptimo</h3>
+      <div class="timeline">
+        <div class="tl-item"><div class="tl-num" style="background:var(--accent)">1</div><div class="tl-text"><span class="hl-blue">BFS</span> en operación normal — menor desgaste acumulado.</div></div>
+        <div class="tl-item"><div class="tl-num" style="background:var(--accent2)">2</div><div class="tl-text"><span class="hl-orange">DFS</span> cuando repetidores caen en zona crítica (&lt;30%).</div></div>
+        <div class="tl-item"><div class="tl-num" style="background:var(--danger)">3</div><div class="tl-text">Alerta predictiva antes de <span class="hl-red">ronda 4 (BFS)</span> o <span class="hl-red">ronda 1 (DFS)</span>.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+     S18 — CONCLUSIONES
+═══════════════════════════════════ -->
+<section data-background-gradient="radial-gradient(ellipse at 80% 80%,rgba(74,222,128,.07) 0%,transparent 60%)">
+  <span class="slide-tag">09 / CONCLUSIONES</span>
+  <h2>Conclusiones</h2>
+  <div class="cols">
+    <div class="col">
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-num" style="background:var(--accent)">1</div>
+          <div class="tl-text"><strong>BFS es el algoritmo natural para routing WSN</strong> cuando la topología es estable. Mínima latencia y menor consumo.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-num" style="background:var(--accent2)">2</div>
+          <div class="tl-text"><strong>DFS como herramienta de auditoría</strong> — mapea rutas alternativas. Valioso para planificar redundancia.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-num" style="background:var(--danger)">3</div>
+          <div class="tl-text"><strong>ESP-NOW Flood consume 11 331% más batería</strong> que BFS. Solo en bootstrap y alertas críticas.</div>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-num" style="background:var(--accent3)">4</div>
+          <div class="tl-text"><strong>BFS preserva 3 sensores más</strong> que DFS tras 120 rondas. Rutas cortas = menos nodos intermedios desgastados.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-num" style="background:#8b5cf6">5</div>
+          <div class="tl-text"><strong>S-35, S-16, S-21</strong> — prioridad de recarga inmediata. Su batería crítica los hace cuello de botella.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-num" style="background:#06b6d4">6</div>
+          <div class="tl-text">Diseño óptimo: <span class="hl-blue">BFS</span> normal + <span class="hl-orange">DFS</span> auditoría 24h + <span class="hl-red">Flood</span> solo en emergencias.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="info" style="margin-top:12px;text-align:center">
+    <span class="hl-blue">BFS</span> operación normal &nbsp;·&nbsp;
+    <span class="hl-orange">DFS</span> auditoría 24h &nbsp;·&nbsp;
+    <span class="hl-red">Flood</span> solo emergencias &nbsp;·&nbsp;
+    <span class="hl-green">Monitoreo predictivo</span> desde ronda 1
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+     S19 — PROPAGACIÓN DE RUTAS EN TOPOLOGÍA (comparativo)
+═══════════════════════════════════ -->
+<section>
+  <span class="slide-tag">10 / ANIMACIÓN TOPOLOGÍA</span>
+  <h2>Propagación de Rutas — BFS vs DFS en la Red</h2>
+  <p style="font-size:.72em;color:#94a3b8;margin:2px 0 8px">Rondas clave 1→10→30→60→90→110 · Nodos coloreados por nivel de batería · Aristas activas resaltadas</p>
+  <div style="text-align:center">
+    <img src="imgs/fig22_comparacion_topologia.gif" class="h280" style="border-radius:8px;border:1px solid #334155">
+  </div>
+  <div class="cols" style="margin-top:8px;gap:8px">
+    <div class="col" style="font-size:.68em">
+      <strong style="color:var(--accent)">BFS (cian)</strong> — rutas cortas 2 saltos,<br>
+      los repetidores envejecen despacio y de forma distribuida.
+    </div>
+    <div class="col" style="text-align:center;font-size:.62em;line-height:1.6">
+      <span style="color:#4ade80">●</span> &gt;70% &nbsp;
+      <span style="color:#facc15">●</span> 50–70% &nbsp;
+      <span style="color:#fb923c">●</span> 30–50% &nbsp;
+      <span style="color:#f87171">●</span> &lt;30% &nbsp;
+      <span style="color:#333">●</span> Muerto &nbsp;
+      <span style="color:#facc15">★</span> Origen
+    </div>
+    <div class="col" style="font-size:.68em;text-align:right">
+      <strong style="color:var(--accent2)">DFS (rojo)</strong> — rutas más largas,<br>
+      concentra el desgaste en repetidores intermedios.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+     S20 — PROPAGACIÓN INDIVIDUAL BFS / DFS
+═══════════════════════════════════ -->
+<section>
+  <span class="slide-tag">10 / ANIMACIÓN TOPOLOGÍA</span>
+  <h2>Detalle — Rutas Individuales por Algoritmo</h2>
+  <div class="cols" style="gap:10px;align-items:flex-start;margin-top:6px">
+    <div class="col" style="text-align:center">
+      <p style="font-size:.68em;color:var(--accent);margin:0 0 4px"><strong>BFS — rutas cian, 2 saltos</strong></p>
+      <img src="imgs/fig20_rutas_bfs_topologia.gif" style="max-height:240px;width:100%;object-fit:contain;border-radius:6px;border:1px solid #1e3a5f">
+    </div>
+    <div class="col" style="text-align:center">
+      <p style="font-size:.68em;color:var(--accent2);margin:0 0 4px"><strong>DFS — rutas rojas, más sinuosas</strong></p>
+      <img src="imgs/fig21_rutas_dfs_topologia.gif" style="max-height:240px;width:100%;object-fit:contain;border-radius:6px;border:1px solid #3f1a1a">
+    </div>
+  </div>
+  <div class="info" style="margin-top:10px;font-size:.66em">
+    Cada ★ es el sensor origen. Las aristas coloreadas son la ruta activa en esa ronda.<br>
+    Los nodos se oscurecen (naranja → rojo → negro) conforme agotan su batería.
+    A partir de la ronda 60, DFS muestra repetidores negros (muertos) en el anillo medio.
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+     S21 — CIERRE
+═══════════════════════════════════ -->
+<section data-background-gradient="radial-gradient(ellipse at 50% 50%,rgba(56,189,248,.1) 0%,transparent 70%)">
+  <div style="margin-top:50px">
+    <h1 style="font-size:1.5em">Gracias</h1>
+    <p style="color:#64748b;font-size:.8em">Jean Carlo Aucapina · jean.aucapina@ucuenca.edu.ec</p>
+    <div class="card-row" style="max-width:680px;margin:18px auto 0">
+      <div class="card" style="text-align:center"><div style="font-size:1.6em">🔵</div><p style="font-size:.7em;margin:3px 0 0"><strong>BFS</strong><br>Mínimos saltos</p></div>
+      <div class="card" style="text-align:center"><div style="font-size:1.6em">🟠</div><p style="font-size:.7em;margin:3px 0 0"><strong>DFS</strong><br>Auditoría rutas</p></div>
+      <div class="card" style="text-align:center"><div style="font-size:1.6em">🔴</div><p style="font-size:.7em;margin:3px 0 0"><strong>Flood</strong><br>Solo emergencias</p></div>
+      <div class="card" style="text-align:center"><div style="font-size:1.6em">📊</div><p style="font-size:.7em;margin:3px 0 0"><strong>Julia</strong><br>Graphs.jl</p></div>
+    </div>
+    <p style="font-size:.62em;color:#334155;margin-top:20px">Universidad de Cuenca · 2026</p>
+  </div>
+</section>
+
+</div><!-- /slides -->
+</div><!-- /reveal -->
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/reveal.js"></script>
+<script>
+Reveal.initialize({
+  hash: true,
+  slideNumber: 'c/t',
+  transition: 'slide',
+  transitionSpeed: 'fast',
+  backgroundTransition: 'fade',
+  controls: true,
+  progress: true,
+  center: false,
+  disableLayout: true,
+  plugins: []
+});
+</script>
+</body>
+</html>

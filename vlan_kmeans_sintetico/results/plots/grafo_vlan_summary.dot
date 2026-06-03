@@ -1,0 +1,29 @@
+digraph VLANSummary {
+  graph [label="VLAN Topology Summary", fontsize=14];
+  node  [shape=box, style=filled, fillcolor=lightgreen];
+  VLAN_1 [label="VLAN 1"];
+  VLAN_2 [label="VLAN 2"];
+  VLAN_3 [label="VLAN 3"];
+  VLAN_4 [label="VLAN 4"];
+  VLAN_5 [label="VLAN 5"];
+  VLAN_1 -> VLAN_2 [label="51f / 353.9KB"];
+  VLAN_1 -> VLAN_3 [label="10f / 49.4KB"];
+  VLAN_1 -> VLAN_4 [label="28f / 162.5KB"];
+  VLAN_1 -> VLAN_5 [label="13f / 126.1KB"];
+  VLAN_2 -> VLAN_1 [label="65f / 374.6KB"];
+  VLAN_2 -> VLAN_3 [label="1f / 0.5KB"];
+  VLAN_2 -> VLAN_4 [label="5f / 9.1KB"];
+  VLAN_2 -> VLAN_5 [label="4f / 58.0KB"];
+  VLAN_3 -> VLAN_1 [label="11f / 113.0KB"];
+  VLAN_3 -> VLAN_2 [label="4f / 0.5KB"];
+  VLAN_3 -> VLAN_4 [label="23f / 177.0KB"];
+  VLAN_3 -> VLAN_5 [label="69f / 450.6KB"];
+  VLAN_4 -> VLAN_1 [label="21f / 257.6KB"];
+  VLAN_4 -> VLAN_2 [label="6f / 44.4KB"];
+  VLAN_4 -> VLAN_3 [label="12f / 175.3KB"];
+  VLAN_4 -> VLAN_5 [label="21f / 178.8KB"];
+  VLAN_5 -> VLAN_1 [label="6f / 44.8KB"];
+  VLAN_5 -> VLAN_2 [label="4f / 0.6KB"];
+  VLAN_5 -> VLAN_3 [label="85f / 431.4KB"];
+  VLAN_5 -> VLAN_4 [label="16f / 67.3KB"];
+}

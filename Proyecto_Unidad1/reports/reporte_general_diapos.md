@@ -378,3 +378,90 @@ Score compuesto de centralidad = predictor robusto de criticidad. Su extension a
 ### Mensaje final
 
 La integracion de teoria de grafos, simulacion epidemiologica y analisis estadistico ofrece un marco coherente para priorizar defensa, deteccion y hardening en redes reales.
+
+## Trabajo futuro: arbol de decision
+
+### Motivacion
+
+Random Forest actual opera como caja negra. Arbol de decision unico ofrece reglas interpretables auditables por analistas de seguridad.
+
+### Logica propuesta
+
+Features identicas al modelo actual:
+
+| Feature | Rol |
+| --- | --- |
+| `out_mal_rate` | fraccion conexiones salientes maliciosas |
+| `in_mal_rate` | fraccion conexiones entrantes maliciosas |
+| `degree_norm` | centralidad de grado normalizada |
+| `out_ports_norm` | diversidad de puertos destino |
+| `in_ports_norm` | diversidad de puertos origen |
+| `byte_ratio_norm` | asimetria bytes salida/entrada |
+| `fanout` | puertos distintos por conexion saliente |
+
+### Regla de clasificacion (arbol profundidad 3)
+
+```text
+if out_mal_rate > umbral_1:
+    → BOTNET (alta confianza)
+else if out_ports_norm > umbral_2 AND byte_ratio_norm > umbral_3:
+    → BOTNET (patron C&C: muchos puertos, trafico asimetrico)
+else if degree_norm > umbral_4 AND in_mal_rate > umbral_5:
+    → BOTNET (hub receptor de trafico malicioso)
+else:
+    → BENIGNO
+```
+
+### Implementacion en Julia
+
+```julia
+# Sustituir RandomForestClassifier por DecisionTreeClassifier
+model = DecisionTree.DecisionTreeClassifier(max_depth=3, min_samples_leaf=2)
+DecisionTree.fit!(model, X_train, y_train)
+
+# Exportar reglas legibles
+DecisionTree.print_tree(model, feature_names)
+```
+
+### Ventajas vs Random Forest
+
+| Aspecto | Random Forest | Arbol simple |
+| --- | --- | --- |
+| Accuracy | Alto (F1=1.0 Mirai) | Menor pero aceptable |
+| Interpretabilidad | Baja | Alta — regla explicita |
+| Auditoria forense | Dificil | Trazable por nodo |
+| Velocidad inferencia | Media | Muy rapida |
+
+### Criterio de particion
+
+Gini o entropia sobre etiqueta binaria malicious/benign. Umbral optimo determinado por grid search en conjunto de validacion holdout (30% de datos).
+
+## Evidencia adicional: botnets (1/5)
+
+### Trafico capturado — imagen 1
+
+![Botnet img 1](botnet_imgs/botnet_img1.jpeg){width=85%}
+
+## Evidencia adicional: botnets (2/5)
+
+### Trafico capturado — imagen 2
+
+![Botnet img 2](botnet_imgs/botnet_img2.jpeg){width=85%}
+
+## Evidencia adicional: botnets (3/5)
+
+### Trafico capturado — imagen 3
+
+![Botnet img 3](botnet_imgs/botnet_img3.jpeg){width=85%}
+
+## Evidencia adicional: botnets (4/5)
+
+### Trafico capturado — imagen 4
+
+![Botnet img 4](botnet_imgs/botnet_img4.jpeg){width=85%}
+
+## Evidencia adicional: botnets (5/5)
+
+### Trafico capturado — imagen 5
+
+![Botnet img 5](botnet_imgs/botnet_img5.jpeg){width=85%}
