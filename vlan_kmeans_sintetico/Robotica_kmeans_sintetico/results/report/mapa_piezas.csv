@@ -1,0 +1,85 @@
+pieza_id,tipo_actuador,fecha_adquisicion,edad_dias,cluster_id,cluster_nombre,pct_vida_util,tiempo_uso_horas,dias_desde_mantenimiento,tasa_fallo_por_1000h,vibracion_rms,temperatura_operacion_c,eficiencia_energetica,drift_posicional_mm,corriente_promedio_a
+14,Actuador Neumático,2023-07-23,314,2,Mantenimiento Urgente,21.25,2124.5,47,0.263,1.285,40.51,0.8843,0.038,3.592
+33,Motor Brushless DC,2020-06-29,1433,2,Mantenimiento Urgente,32.72,9814.5,213,0.087,0.271,62.97,0.8999,0.0391,14.604
+109,Motor Brushless DC,2014-01-28,3777,1,Mantenimiento Programado,109.81,32942.3,854,10.294,2.168,106.2,0.3514,1.5253,24.353
+9,Servo Motor Industrial,2022-12-16,533,2,Mantenimiento Urgente,21.41,4282.7,72,0.322,0.693,53.89,0.8821,0.0364,11.58
+72,Motor Paso a Paso,2018-01-06,2338,3,Reemplazo,70.74,17683.8,300,2.83,1.268,85.73,0.6998,0.3312,6.888
+13,Servo Motor Industrial,2022-09-06,634,2,Mantenimiento Urgente,34.65,6929.7,66,0.259,0.587,55.81,0.9001,0.0512,11.234
+117,Servo Motor Industrial,2017-10-17,2419,1,Mantenimiento Programado,95.0,19000.0,362,11.062,4.273,97.65,0.4689,1.6938,19.831
+79,Servo Motor Industrial,2018-09-30,2071,3,Reemplazo,65.41,13081.6,210,3.601,1.592,75.63,0.6716,0.4676,14.511
+1,Motor Paso a Paso,2022-11-03,576,2,Mantenimiento Urgente,19.2,4800.4,108,0.351,0.421,57.74,0.9011,0.0496,4.476
+68,Actuador Hidráulico,2021-10-11,964,3,Reemplazo,69.62,10443.5,135,3.021,2.691,67.54,0.7308,0.4394,10.171
+47,Actuador Hidráulico,2022-09-03,637,2,Mantenimiento Urgente,29.72,4458.0,49,0.238,1.048,46.75,0.9067,0.061,7.479
+70,Servo Motor Industrial,2017-09-03,2463,3,Reemplazo,79.47,15894.1,218,3.625,2.015,74.63,0.6992,0.4832,14.511
+110,Actuador Hidráulico,2020-12-23,1256,1,Mantenimiento Programado,101.81,15271.5,255,12.428,4.597,91.77,0.478,1.4659,16.133
+48,Motor Brushless DC,2021-03-25,1164,2,Mantenimiento Urgente,28.7,8610.5,163,0.259,0.21,66.75,0.9054,0.0403,14.124
+12,Actuador Neumático,2023-09-13,262,2,Mantenimiento Urgente,23.75,2375.4,30,0.196,1.379,38.78,0.8749,0.0252,3.262
+31,Actuador Neumático,2023-06-12,355,2,Mantenimiento Urgente,37.53,3753.0,36,0.386,1.236,41.5,0.8993,0.0386,2.836
+75,Servo Motor Industrial,2017-06-11,2547,3,Reemplazo,83.78,16756.7,215,3.696,1.623,75.2,0.6522,0.5154,14.873
+10,Actuador Neumático,2022-12-07,542,2,Mantenimiento Urgente,50.57,5057.4,45,0.267,1.35,40.03,0.9085,0.0513,3.248
+106,Actuador Hidráulico,2019-06-15,1813,1,Mantenimiento Programado,106.09,15913.1,276,8.552,4.249,80.43,0.4202,1.8795,15.813
+94,Motor Paso a Paso,2015-06-19,3270,1,Mantenimiento Programado,111.67,27917.7,483,11.702,3.019,99.84,0.4421,1.5013,8.331
+82,Servo Motor Industrial,2020-12-22,1257,3,Reemplazo,66.28,13256.9,239,4.343,1.762,79.2,0.6951,0.4082,15.3
+67,Servo Motor Industrial,2020-04-07,1516,3,Reemplazo,64.19,12837.8,198,2.715,2.1,79.2,0.7478,0.5275,15.3
+5,Motor Brushless DC,2021-12-05,909,2,Mantenimiento Urgente,21.54,6461.5,112,0.315,0.278,66.14,0.9232,0.0389,14.173
+99,Motor Paso a Paso,2011-03-24,4818,1,Mantenimiento Programado,124.09,31023.1,461,11.958,2.753,105.42,0.4444,1.4824,8.98
+40,Motor Brushless DC,2020-12-10,1269,2,Mantenimiento Urgente,31.15,9344.3,203,0.17,0.248,64.44,0.9036,0.0602,14.164
+120,Actuador Neumático,2021-04-01,1157,1,Mantenimiento Programado,105.35,10534.5,213,8.01,6.073,72.82,0.3778,1.4453,6.11
+113,Actuador Neumático,2021-01-04,1244,1,Mantenimiento Programado,127.15,12715.2,188,10.387,5.641,69.26,0.471,1.4524,7.04
+112,Motor Brushless DC,2009-07-17,5433,1,Mantenimiento Programado,112.16,33647.8,713,10.725,2.38,114.81,0.4573,1.6151,23.786
+7,Actuador Hidráulico,2022-10-03,607,2,Mantenimiento Urgente,25.37,3804.9,46,0.3,1.131,44.05,0.9054,0.0333,7.461
+32,Actuador Neumático,2023-08-28,278,2,Mantenimiento Urgente,24.55,2455.4,31,0.28,1.284,37.96,0.9158,0.0321,3.265
+101,Motor Brushless DC,2015-01-08,3432,1,Mantenimiento Programado,112.33,33699.1,749,12.355,2.069,114.33,0.481,1.5965,24.591
+78,Actuador Hidráulico,2021-05-01,1127,3,Reemplazo,68.16,10223.4,146,3.102,2.446,66.21,0.7012,0.5925,9.946
+64,Motor Brushless DC,2016-04-18,2966,3,Reemplazo,68.46,20538.5,485,3.337,0.695,88.59,0.6992,0.3994,18.7
+26,Servo Motor Industrial,2023-05-07,391,2,Mantenimiento Urgente,16.77,3354.6,88,0.253,0.706,53.02,0.8896,0.0645,11.163
+22,Motor Paso a Paso,2021-12-23,891,2,Mantenimiento Urgente,28.29,7073.6,104,0.294,0.368,60.65,0.9151,0.0374,4.828
+119,Motor Brushless DC,2009-03-10,5562,1,Mantenimiento Programado,118.39,35517.8,816,7.953,2.202,113.18,0.4192,1.7829,24.195
+53,Motor Brushless DC,2018-02-27,2286,3,Reemplazo,63.17,18950.8,453,3.314,0.883,92.4,0.7116,0.517,18.7
+90,Actuador Neumático,2022-01-01,882,3,Reemplazo,73.94,7393.7,114,4.418,3.596,50.11,0.6781,0.4822,3.85
+30,Actuador Neumático,2023-02-25,462,2,Mantenimiento Urgente,33.18,3317.6,35,0.208,1.281,37.36,0.9028,0.0253,3.721
+83,Actuador Neumático,2022-08-19,652,3,Reemplazo,72.32,7232.4,103,3.139,3.262,51.32,0.7335,0.4868,4.954
+46,Actuador Hidráulico,2023-01-22,496,2,Mantenimiento Urgente,39.3,5894.9,48,0.348,1.034,47.43,0.9333,0.06,7.84
+93,Actuador Hidráulico,2018-11-29,2011,1,Mantenimiento Programado,108.21,16231.1,307,12.098,4.419,88.09,0.3924,1.4447,15.624
+85,Actuador Neumático,2022-05-20,743,3,Reemplazo,80.43,8043.3,92,3.704,3.589,52.67,0.7069,0.3806,4.68
+34,Actuador Neumático,2024-02-17,105,2,Mantenimiento Urgente,9.12,911.6,28,0.168,1.294,40.28,0.9016,0.0247,3.78
+41,Actuador Hidráulico,2022-08-29,642,2,Mantenimiento Urgente,29.58,4437.6,42,0.237,0.978,44.95,0.975,0.0407,7.569
+87,Motor Paso a Paso,2019-11-19,1656,3,Reemplazo,66.71,16676.6,316,3.766,1.013,76.33,0.683,0.3768,6.863
+86,Servo Motor Industrial,2018-12-04,2006,3,Reemplazo,85.0,17000.0,207,3.459,1.773,77.42,0.7551,0.4879,15.047
+6,Actuador Hidráulico,2022-10-09,601,2,Mantenimiento Urgente,25.2,3779.5,37,0.155,1.006,46.03,0.8824,0.0337,7.917
+102,Motor Paso a Paso,2016-09-18,2813,1,Mantenimiento Programado,122.38,30596.0,494,11.004,2.497,103.41,0.51,1.6248,8.942
+111,Motor Paso a Paso,2012-02-07,4498,1,Mantenimiento Programado,119.94,29985.8,529,8.722,2.755,110.94,0.4155,1.1253,8.526
+103,Servo Motor Industrial,2015-11-15,3121,1,Mantenimiento Programado,116.19,23237.7,423,11.329,4.706,89.12,0.4995,1.4896,20.021
+35,Motor Brushless DC,2022-12-01,548,2,Mantenimiento Urgente,15.08,4523.6,134,0.212,0.168,61.18,0.9024,0.0346,14.095
+15,Actuador Hidráulico,2023-03-28,431,2,Mantenimiento Urgente,24.14,3620.8,51,0.274,1.071,41.89,0.8974,0.0308,7.559
+107,Servo Motor Industrial,2016-09-11,2820,1,Mantenimiento Programado,115.0,22999.2,450,11.234,4.002,89.03,0.4735,1.2411,20.733
+50,Motor Brushless DC,2018-11-08,2032,3,Reemplazo,65.5,19649.6,433,2.778,0.849,90.39,0.6941,0.3836,17.701
+98,Motor Paso a Paso,2016-02-10,3034,1,Mantenimiento Programado,102.14,25535.5,535,9.421,2.705,112.9,0.3934,1.4362,9.778
+81,Actuador Hidráulico,2022-01-16,867,3,Reemplazo,65.99,9898.1,158,3.52,2.622,64.16,0.7502,0.5275,10.407
+18,Actuador Hidráulico,2023-01-13,505,2,Mantenimiento Urgente,27.93,4189.9,43,0.283,1.01,44.92,0.9505,0.0248,7.491
+77,Servo Motor Industrial,2019-10-12,1694,3,Reemplazo,72.96,14592.9,223,3.262,1.639,77.36,0.7169,0.4282,14.606
+59,Actuador Hidráulico,2020-07-31,1401,3,Reemplazo,81.6,12239.3,127,3.595,2.439,64.37,0.6878,0.4481,10.644
+55,Actuador Hidráulico,2020-08-15,1386,3,Reemplazo,75.19,11278.0,133,3.663,2.745,64.21,0.6869,0.4422,9.912
+88,Actuador Hidráulico,2020-05-24,1469,3,Reemplazo,75.87,11380.3,176,3.287,2.905,64.24,0.73,0.3612,9.968
+39,Motor Brushless DC,2021-07-20,1047,2,Mantenimiento Urgente,34.01,10203.2,109,0.214,0.227,63.06,0.8712,0.049,14.205
+11,Motor Brushless DC,2023-11-08,206,2,Mantenimiento Urgente,5.0,1500.0,162,0.186,0.289,67.94,0.9225,0.0303,13.944
+8,Motor Brushless DC,2020-12-11,1268,2,Mantenimiento Urgente,26.37,7909.8,166,0.293,0.3,68.18,0.9021,0.0491,13.864
+56,Actuador Hidráulico,2020-03-31,1523,3,Reemplazo,62.95,9443.0,148,3.585,2.787,69.04,0.6758,0.4931,10.324
+58,Motor Brushless DC,2018-11-10,2030,3,Reemplazo,60.0,18000.0,423,2.756,0.628,84.53,0.7321,0.4701,18.406
+57,Motor Brushless DC,2020-01-02,1612,3,Reemplazo,60.0,18000.0,416,4.605,0.901,91.03,0.7368,0.4872,18.7
+116,Actuador Hidráulico,2017-11-12,2393,1,Mantenimiento Programado,103.81,15571.9,255,12.179,4.288,82.12,0.4701,1.4373,15.628
+29,Servo Motor Industrial,2020-06-21,1441,2,Mantenimiento Urgente,55.0,11000.0,85,0.3,0.664,55.25,0.9137,0.0126,11.237
+54,Actuador Neumático,2022-03-14,810,3,Reemplazo,68.38,6838.1,108,4.783,3.348,58.32,0.7214,0.3951,4.983
+71,Motor Paso a Paso,2016-12-19,2721,3,Reemplazo,70.06,17513.8,270,4.001,1.102,80.2,0.6854,0.4858,5.5
+16,Motor Brushless DC,2023-07-15,322,2,Mantenimiento Urgente,12.12,3634.7,159,0.17,0.177,66.39,0.9335,0.0499,14.536
+3,Actuador Hidráulico,2023-10-29,216,2,Mantenimiento Urgente,12.69,1903.7,38,0.307,1.1,48.37,0.9005,0.0375,7.4
+52,Motor Brushless DC,2016-01-26,3049,3,Reemplazo,68.37,20510.7,436,4.025,0.556,86.33,0.7144,0.487,18.7
+44,Servo Motor Industrial,2023-03-18,441,2,Mantenimiento Urgente,14.0,2799.2,94,0.269,0.713,56.32,0.929,0.0465,11.529
+95,Motor Paso a Paso,2014-11-29,3472,1,Mantenimiento Programado,107.7,26925.6,502,13.56,2.445,109.11,0.4573,1.3465,9.771
+100,Motor Paso a Paso,2018-04-22,2232,1,Mantenimiento Programado,104.39,26096.4,551,13.18,2.843,108.92,0.4466,1.3795,8.906
+69,Motor Brushless DC,2018-08-18,2114,3,Reemplazo,60.0,18000.0,537,3.293,0.775,90.98,0.7106,0.4695,18.7
+19,Motor Paso a Paso,2021-02-23,1194,2,Mantenimiento Urgente,38.22,9555.3,104,0.401,0.332,55.78,0.948,0.0288,4.746
+51,Servo Motor Industrial,2017-09-07,2459,3,Reemplazo,78.23,15646.0,219,2.624,1.899,79.2,0.6881,0.3919,15.3
+25,Servo Motor Industrial,2023-07-01,336,2,Mantenimiento Urgente,18.27,3654.7,53,0.329,0.707,56.46,0.9297,0.0602,11.344
+43,Servo Motor Industrial,2022-11-03,576,2,Mantenimiento Urgente,32.07,6414.9,72,0.339,0.738,56.61,0.9255,0.0451,11.452
+96,Motor Brushless DC,2010-10-26,4967,1,Mantenimiento Programado,103.11,30931.8,743,12.451,2.747,107.17,0.4143,1.486,23.435

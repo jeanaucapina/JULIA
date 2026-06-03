@@ -1,0 +1,4 @@
+cluster_id,cluster_nombre,train_piezas,test_piezas,estables,estabilidad
+1,Mantenimiento Programado,21,9,2,0.095
+2,Mantenimiento Urgente,34,14,6,0.176
+3,Reemplazo,29,13,3,0.103

@@ -1,0 +1,4 @@
+cluster_id,cluster_nombre,n_piezas,pct_vida_util_media,pct_vida_util_max,tiempo_uso_h_media,tasa_fallo_media,vibracion_media,temperatura_media_c,dias_sin_mantenimiento,eficiencia_media,drift_media_mm,corriente_media_a,pureza
+1,Mantenimiento Programado,21,110.8,127.15,24585.4,10.981,3.468,98.41,483.8,0.4421,1.4977,15.263,1.0
+2,Mantenimiento Urgente,34,26.42,55.0,5116.2,0.263,0.752,52.63,84.5,0.9099,0.0406,8.992,1.0
+3,Reemplazo,29,70.44,85.0,14103.5,3.512,1.914,74.36,249.6,0.7067,0.454,12.35,1.0
