@@ -1,3 +1,9 @@
+﻿---
+title: "Reporte — Inferencia Automática de VLANs con K-Means sobre Tráfico de Red"
+author: "Jean Carlo Aucapina"
+date: "2026-06-03"
+---
+
 # Reporte — Inferencia Automática de VLANs con K-Means sobre Tráfico de Red
 
 **Universidad de Cuenca | DEET | Maestría en Ciencias de la Ingeniería Eléctrica**

@@ -1,3 +1,9 @@
+﻿---
+title: "Reporte — Parte 4: Simulación de Propagación de Malware (Modelo SIR)"
+author: "Jean Carlo Aucapina"
+date: "Abril 2026"
+---
+
 # Reporte — Parte 4: Simulación de Propagación de Malware (Modelo SIR)
 
 **Universidad de Cuenca | DEET | Maestría en Ciencias de la Ingeniería Eléctrica**

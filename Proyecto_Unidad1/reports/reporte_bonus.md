@@ -1,3 +1,9 @@
+﻿---
+title: "Reporte — Desafío Extra: Detección de Botnet con Dataset IoT-23"
+author: "Jean Carlo Aucapina"
+date: "Abril 2026"
+---
+
 # Reporte — Desafío Extra: Detección de Botnet con Dataset IoT-23
 
 **Universidad de Cuenca | DEET | Maestría en Ciencias de la Ingeniería Eléctrica**

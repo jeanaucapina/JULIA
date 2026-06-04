@@ -1,3 +1,9 @@
+﻿---
+title: "Reporte: BFS y DFS en Red de Sensores Hídricos"
+author: "Jean Carlo Aucapina"
+date: "2026-05-13"
+---
+
 # Reporte: BFS y DFS en Red de Sensores Hídricos
 
 **Autor:** Jean Carlo Aucapina

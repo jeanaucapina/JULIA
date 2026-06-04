@@ -1,3 +1,9 @@
+﻿---
+title: "Reporte — Parte 1: Construcción del Grafo de Red"
+author: "Jean Carlo Aucapina"
+date: "Abril 2026"
+---
+
 # Reporte — Parte 1: Construcción del Grafo de Red
 
 **Universidad de Cuenca | DEET | Maestría en Ciencias de la Ingeniería Eléctrica**

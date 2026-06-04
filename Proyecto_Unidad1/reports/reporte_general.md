@@ -1,4 +1,10 @@
-﻿# Reporte General — Detección de Anomalías en Redes
+﻿---
+title: "Reporte General — Detección de Anomalías en Redes"
+author: "Jean Carlo Aucapina"
+date: "Abril 2026"
+---
+
+# Reporte General — Detección de Anomalías en Redes
 
 **Universidad de Cuenca | DEET | Maestría en Ciencias de la Ingeniería Eléctrica**
 **Autor:** Jean Carlo Aucapina | **Fecha:** Abril 2026

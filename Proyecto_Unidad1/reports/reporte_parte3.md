@@ -1,3 +1,9 @@
+﻿---
+title: "Reporte — Parte 3: Detección de Anomalías Estadísticas"
+author: "Jean Carlo Aucapina"
+date: "Abril 2026"
+---
+
 # Reporte — Parte 3: Detección de Anomalías Estadísticas
 
 **Universidad de Cuenca | DEET | Maestría en Ciencias de la Ingeniería Eléctrica**

@@ -1,3 +1,9 @@
+﻿---
+title: "Reporte — Parte 2: Métricas de Centralidad"
+author: "Jean Carlo Aucapina"
+date: "Abril 2026"
+---
+
 # Reporte — Parte 2: Métricas de Centralidad
 
 **Universidad de Cuenca | DEET | Maestría en Ciencias de la Ingeniería Eléctrica**
