@@ -1,3 +1,4 @@
 {
-    "julia.environmentPath": "\\Users\\jeanj\\Documents\\GitHub\\JULIA\\facebook_centralidad_venv"
+    "julia.environmentPath": "\\Users\\jeanj\\Documents\\GitHub\\JULIA\\facebook_centralidad_venv",
+    "latex-workshop.latex.outDir": "%DIR%/build"
 }
